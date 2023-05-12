@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private PlayerControls playerControls;
     private Vector2 player_Movement;
     private Rigidbody2D player_rb;
+    private Animator playerMovingAnim;
 
 
     /// <summary>
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         playerControls = new PlayerControls();
         player_rb = GetComponent<Rigidbody2D>();
+        playerMovingAnim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -46,6 +48,9 @@ public class PlayerController : MonoBehaviour
     private void PlayerInput()
     {
         player_Movement = playerControls.Movement.Move.ReadValue<Vector2>();
+
+        playerMovingAnim.SetFloat("MoveX", player_Movement.x);
+        playerMovingAnim.SetFloat("MoveY", player_Movement.y);
     }
 
     // set move for player
