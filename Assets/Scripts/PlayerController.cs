@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 player_Movement;
     private Rigidbody2D player_rb;
     private Animator playerMovingAnim;
+    private SpriteRenderer playerSpriteRenderer;
 
 
     /// <summary>
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
         playerControls = new PlayerControls();
         player_rb = GetComponent<Rigidbody2D>();
         playerMovingAnim = GetComponent<Animator>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        PlayerFacingDirection();
         PlayerMove();
     }
 
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         player_Movement = playerControls.Movement.Move.ReadValue<Vector2>();
 
+        // setup player move animation with player_movement
         playerMovingAnim.SetFloat("MoveX", player_Movement.x);
         playerMovingAnim.SetFloat("MoveY", player_Movement.y);
     }
@@ -56,6 +60,25 @@ public class PlayerController : MonoBehaviour
     // set move for player
     private void PlayerMove()
     {
-        player_rb.MovePosition(player_rb.position + player_Movement * playerMovementSpeed * Time.fixedDeltaTime);
+        player_rb.MovePosition(player_rb.position + player_Movement * (playerMovementSpeed * Time.fixedDeltaTime));
+    }
+
+    // player has facing to mouse
+    private void PlayerFacingDirection()
+    {
+        // get mouse position in screen
+        Vector3 mousePos = Input.mousePosition;
+        // get player position in screen 
+        Vector3 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
+
+        // check location for player facing
+        if(mousePos.x < playerScreenPoint.x)
+        {
+            playerSpriteRenderer.flipX = true;
+        } 
+        else
+        {
+            playerSpriteRenderer.flipX = false;
+        }
     }
 }
