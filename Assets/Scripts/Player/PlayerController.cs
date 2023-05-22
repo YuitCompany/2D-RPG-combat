@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
+
     [SerializeField] private float playerMovementSpeed = 1f;
 
     private PlayerControls playerControls;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerMovingAnim;
     private SpriteRenderer playerSpriteRenderer;
 
+    private bool isFacingLeft = false;
 
     /// <summary>
     /// unity system method
@@ -74,10 +77,12 @@ public class PlayerController : MonoBehaviour
         // check location for player facing
         if(mousePos.x < playerScreenPoint.x)
         {
+            IsFacingLeft = true;
             playerSpriteRenderer.flipX = true;
         } 
         else
         {
+            IsFacingLeft = false;  
             playerSpriteRenderer.flipX = false;
         }
     }

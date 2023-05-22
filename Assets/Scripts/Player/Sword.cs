@@ -1,14 +1,21 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem.Utilities;
 
 public class Sword : MonoBehaviour
 {
+    [SerializeField] private GameObject slashAnimPrefas;
+    [SerializeField] private Transform slashAnmSpamPoint;
+    //[SerializeField] private Transform weaponCollider; // bỏ
+
     private PlayerControls playerControls;
     private Animator swordAnim;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
+
+    private GameObject slashAnim;
 
     /// <summary>
     /// Unity System method
@@ -32,7 +39,7 @@ public class Sword : MonoBehaviour
     }
 
     /// <summary>
-    /// Sword Method
+    /// Sword Private Method
     /// </summary>
     // enable for PlayerControls Script on class
     private void OnEnable()
@@ -40,10 +47,14 @@ public class Sword : MonoBehaviour
         playerControls.Enable();
     }
 
-    // get trigger creat motion for sword
+    // get trigger create motion for sword
     private void Attack()
     {
         swordAnim.SetTrigger("Attack");
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+        slashAnim = Instantiate(slashAnimPrefas, slashAnmSpamPoint.position, Quaternion.identity);
+        slashAnim.transform.parent = this.transform.parent;
     }
 
     // sword has facing to mouse
@@ -61,6 +72,34 @@ public class Sword : MonoBehaviour
         } else
         {
             activeWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    /// <summary>
+    /// Sword Public Method
+    /// </summary>
+    public void DoneAttackingAnimEvent()
+    {
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public void SlashUpFlipAnimEvent()
+    {
+        slashAnim.gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
+
+        if(playerController.IsFacingLeft)
+        {
+            slashAnim.GetComponent<SpriteRenderer>().flipX = true;
+        } 
+    }
+
+    public void SlashDownFlipAnimEvent()
+    {
+        slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        if (playerController.IsFacingLeft)
+        {
+            slashAnim.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
 }
