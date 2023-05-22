@@ -11,7 +11,7 @@ public class EnemyPathFinding : MonoBehaviour
     private Vector2 moveDir;
     private Animator slimeMovingAnim;
     private SpriteRenderer slimeSpriteRenderer;
-
+    private KnockBack knockBack;
 
     /// <summary>
     /// Unity System Method
@@ -21,10 +21,12 @@ public class EnemyPathFinding : MonoBehaviour
         slime_rb = GetComponent<Rigidbody2D>();
         slimeMovingAnim = GetComponent<Animator>();
         slimeSpriteRenderer = GetComponent<SpriteRenderer>();
+        knockBack = GetComponent<KnockBack>();
     }
 
     private void FixedUpdate()
     {
+        if (knockBack.IsKnockedBack) { return; }
         slime_rb.MovePosition(slime_rb.position + moveDir * (slimeMoveSpeed * Time.fixedDeltaTime));
     }
 

@@ -7,10 +7,15 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int defaultHealth = 3;
 
     private int currentHealth;
+    private KnockBack knockBack;
 
     /// <summary>
     /// Unity System Method
     /// </summary>
+    private void Awake()
+    {
+        knockBack = GetComponent<KnockBack>();
+    }
     private void Start()
     {
         currentHealth = defaultHealth;
@@ -33,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        knockBack.GetKnockedBack(PlayerController.Instance.transform, 15f);
         DetectDeath();
-        Debug.Log(currentHealth);
     }
 }
