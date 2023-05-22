@@ -37,11 +37,23 @@ public class EnemyPathFinding : MonoBehaviour
         moveDir = targetPosition;
         
         // FacingAnimation for movement(left/right)
-        if (moveDir.x > 0) slimeSpriteRenderer.flipX = false;
-        else slimeSpriteRenderer.flipX = true;
+        if (moveDir.x > 0)
+        {
+            slimeSpriteRenderer.flipX = false;
+        }
+        else
+        {
+            slimeSpriteRenderer.flipX = true;
+        }
 
         // check movement for change moving Animation
-        if (moveDir.x != 0 || moveDir .y != 0) slimeMovingAnim.SetBool("isMoving", true);
-        else slimeMovingAnim.SetBool("isMoving", false);
+        if (moveDir.x != 0 || moveDir.y != 0)
+        {
+            slimeMovingAnim.SetBool("isMoving", true);
+        }
+        else
+        {
+            slimeMovingAnim.SetBool("isMoving", false);
+        }
     }
 }
