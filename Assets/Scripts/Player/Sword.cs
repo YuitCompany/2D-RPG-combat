@@ -7,7 +7,7 @@ using UnityEngine.InputSystem.Utilities;
 public class Sword : MonoBehaviour
 {
     [SerializeField] private GameObject slashAnimPrefas;
-    [SerializeField] private Transform slashAnmSpamPoint;
+    [SerializeField] private Transform slashAnimSpamPoint;
     //[SerializeField] private Transform weaponCollider; // bỏ
 
     private PlayerControls playerControls;
@@ -50,10 +50,13 @@ public class Sword : MonoBehaviour
     // get trigger create motion for sword
     private void Attack()
     {
+        // set Trigger
         swordAnim.SetTrigger("Attack");
+        // Enable Sword Collider
         this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
-        slashAnim = Instantiate(slashAnimPrefas, slashAnmSpamPoint.position, Quaternion.identity);
+        // spawm slash anim
+        slashAnim = Instantiate(slashAnimPrefas, slashAnimSpamPoint.position, Quaternion.identity);
         slashAnim.transform.parent = this.transform.parent;
     }
 
@@ -78,11 +81,13 @@ public class Sword : MonoBehaviour
     /// <summary>
     /// Sword Public Method
     /// </summary>
+    // unenable Sword Conllider
     public void DoneAttackingAnimEvent()
     {
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
+    // rotation slash anim with up attack
     public void SlashUpFlipAnimEvent()
     {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
@@ -93,6 +98,7 @@ public class Sword : MonoBehaviour
         } 
     }
 
+    // rotation slash anim with down attack
     public void SlashDownFlipAnimEvent()
     {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
