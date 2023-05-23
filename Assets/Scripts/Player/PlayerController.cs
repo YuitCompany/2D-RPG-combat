@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
@@ -9,7 +10,13 @@ public class PlayerController : MonoBehaviour
     public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
     public static PlayerController Instance;
 
-    [SerializeField] private float playerMovementSpeed = 1f;
+    [SerializeField] private float playerDefaultMovementSpeed = 5f;
+    [SerializeField] private float playerMovementSpeed;
+    [SerializeField] private float playerDashSpeed = 4f;
+    [SerializeField] private float playerDashTime = .2f;
+    [SerializeField] private float playerDashCD = .5f;
+
+    [SerializeField] private TrailRenderer dashTrailRenderer;
 
     private PlayerControls playerControls;
     private Vector2 player_Movement;
@@ -18,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
 
     private bool isFacingLeft = false;
+    private bool isDashing;
 
     /// <summary>
     /// unity system method
@@ -30,6 +38,12 @@ public class PlayerController : MonoBehaviour
         player_rb = GetComponent<Rigidbody2D>();
         playerMovingAnim = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        playerMovementSpeed = playerDefaultMovementSpeed;
+        playerControls.Combat.Dash.performed += _ => Dash();
     }
 
     private void Update()
@@ -88,5 +102,29 @@ public class PlayerController : MonoBehaviour
             IsFacingLeft = false;  
             playerSpriteRenderer.flipX = false;
         }
+    }
+
+    // Player has move faster
+    private void Dash()
+    {
+        if (isDashing) { return; }
+
+        isDashing = true;
+        playerMovementSpeed *= playerDashSpeed;
+        dashTrailRenderer.emitting = true;
+        StartCoroutine(EndDashRoutine(playerDashTime, playerDashCD));
+    }
+
+    ///
+    /// create EndDash Routine Method
+    ///
+    private IEnumerator EndDashRoutine(float dashTime, float dashCD)
+    {
+        // feature code
+        yield return new WaitForSeconds(dashTime);
+        playerMovementSpeed = playerDefaultMovementSpeed;
+        dashTrailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCD);
+        isDashing = false;
     }
 }
