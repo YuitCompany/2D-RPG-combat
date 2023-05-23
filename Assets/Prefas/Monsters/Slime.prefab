@@ -188,7 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29dbdc924ac5a1e4cbfbfe810d7222cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultHealth: 5
+  defaultHealth: 3
+  DeathVFXPrefas: {fileID: 2394373674368704264, guid: 100fa66efc299f648a1d89b25040b1f3, type: 3}
 --- !u!114 &1618765298
 MonoBehaviour:
   m_ObjectHideFlags: 0
