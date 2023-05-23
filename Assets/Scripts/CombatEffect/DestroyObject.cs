@@ -16,12 +16,12 @@ public class DestroyObject : MonoBehaviour
         // destroy Particle After use
         if (_particleDestroy && !_particleDestroy.IsAlive())
         {
-            DestroySelf();
+            DestroySelfAnimEvent();
         }
     }
 
     // destroy object after call method
-    public void DestroySelf()
+    public void DestroySelfAnimEvent()
     {
         Destroy(this.gameObject);
     }

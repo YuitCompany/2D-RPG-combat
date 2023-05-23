@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerMovementSpeed = playerDefaultMovementSpeed;
+
         playerControls.Combat.Dash.performed += _ => Dash();
     }
 
