@@ -20,6 +20,7 @@ public class TransparentDetection : MonoBehaviour
         tilemap = GetComponent<Tilemap>();
     }
      
+    // start change opaty (Object)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
@@ -35,10 +36,27 @@ public class TransparentDetection : MonoBehaviour
         }
     }
 
-    // hiden Objet when player Move to Objet (SriteRenderer/Tilemap)
+    // stop change opaty (Object)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>())
+        {
+            if (spriteRenderer)
+            {
+                StartCoroutine(FadeOnMoveRoutine(spriteRenderer, fadeTime, spriteRenderer.color.a, 1f));
+            }
+            if (tilemap)
+            {
+                StartCoroutine(FadeOnMoveRoutine(tilemap, fadeTime, tilemap.color.a, 1f));
+            }
+        }
+    }
+
+    // hidden Objet when player Move to Objet (SriteRenderer/Tilemap)
     private IEnumerator FadeOnMoveRoutine(SpriteRenderer spriteRenderer, float fadeTime, float startValue, float targetTransParencyAmount)
     {
         float elapsedTime = 0;
+
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.deltaTime;
@@ -51,6 +69,7 @@ public class TransparentDetection : MonoBehaviour
     private IEnumerator FadeOnMoveRoutine(Tilemap tilemap, float fadeTime, float startValue, float targetTransParencyAmount)
     {
         float elapsedTime = 0;
+
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.deltaTime;
