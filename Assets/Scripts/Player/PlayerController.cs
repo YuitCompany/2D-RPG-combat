@@ -5,10 +5,9 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Singleton<PlayerController>
 {
     public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
-    public static PlayerController Instance;
 
     [SerializeField] private float playerDefaultMovementSpeed = 5f;
     [SerializeField] private float playerMovementSpeed;
@@ -30,9 +29,9 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// unity system method
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
 
         playerControls = new PlayerControls();
         player_rb = GetComponent<Rigidbody2D>();
