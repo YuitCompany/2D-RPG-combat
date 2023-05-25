@@ -23,10 +23,7 @@ public class AreaExit : MonoBehaviour
         }
     }
 
-    ///
     /// create LoadSceneRoutine Method
-    /// StartCoroutine(LoadSceneRoutine());
-    ///
     private IEnumerator LoadSceneRoutine()
     {
         while (waitToLoadTime >= 0)
