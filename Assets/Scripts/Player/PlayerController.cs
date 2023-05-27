@@ -9,6 +9,12 @@ public class PlayerController : Singleton<PlayerController>
 {
     public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
 
+    // health set/get change
+    public float PlayerMaxHealth { get { return playerMaxHealth; } }
+    public float PlayerPresentHealth { get { return playerPresentHealth; } set { playerPresentHealth = value; } }
+
+    [SerializeField] private float playerMaxHealth = 10f;
+    [SerializeField] private float playerPresentHealth;
     [SerializeField] private float playerDefaultMovementSpeed = 5f;
     [SerializeField] private float playerMovementSpeed;
     [SerializeField] private float playerDashSpeed = 4f;
@@ -41,6 +47,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
+        // set health on starting game
+        playerPresentHealth = playerMaxHealth;
+
         playerMovementSpeed = playerDefaultMovementSpeed;
 
         playerControls.Combat.Dash.performed += _ => Dash();
@@ -126,5 +135,10 @@ public class PlayerController : Singleton<PlayerController>
         dashTrailRenderer.emitting = false;
         yield return new WaitForSeconds(dashCD);
         isDashing = false;
+    }
+
+    public void PlayerTakeDamage(float damageAmount)
+    {
+        PlayerPresentHealth -= damageAmount;
     }
 }
