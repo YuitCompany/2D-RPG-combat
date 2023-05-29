@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem.Utilities;
+
+using BaseCharacter;
+
 
 public class Sword : MonoBehaviour
 {
     [SerializeField] private GameObject slashAnimPrefas;
     [SerializeField] private Transform slashAnimSpamPoint;
-    //[SerializeField] private Transform weaponCollider; // bỏ
 
     private PlayerControls playerControls;
     private Animator swordAnim;
@@ -16,6 +18,8 @@ public class Sword : MonoBehaviour
     private ActiveWeapon activeWeapon;
 
     private GameObject slashAnim;
+
+    private bool isAttacking;
 
     /// <summary>
     /// Unity System method
@@ -50,6 +54,9 @@ public class Sword : MonoBehaviour
     // get trigger create motion for sword
     private void Attack()
     {
+        if(isAttacking) { return; }
+
+        isAttacking = true;
         // set Trigger
         swordAnim.SetTrigger("Attack");
         // Enable Sword Collider
@@ -58,6 +65,8 @@ public class Sword : MonoBehaviour
         // spawm slash anim
         slashAnim = Instantiate(slashAnimPrefas, slashAnimSpamPoint.position, Quaternion.identity);
         slashAnim.transform.parent = this.transform.parent;
+
+        StartCoroutine(EndAttackRoutine());
     }
 
     // sword has facing to mouse
@@ -107,5 +116,13 @@ public class Sword : MonoBehaviour
         {
             slashAnim.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    /// create Attacked Routine Method
+    private IEnumerator EndAttackRoutine()
+    {
+        // feature code
+        yield return new WaitForSeconds(PlayerController.Instance.playerInfo.Get_FloatProperty(PropertyType.attack_speed));
+        isAttacking = false;
     }
 }

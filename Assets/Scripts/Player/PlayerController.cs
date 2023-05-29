@@ -1,25 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+using BaseCharacter;
+
 
 public class PlayerController : Singleton<PlayerController>
 {
     public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
-
-    // health set/get change
-    public float PlayerMaxHealth { get { return playerMaxHealth; } }
-    public float PlayerPresentHealth { get { return playerPresentHealth; } set { playerPresentHealth = value; } }
-
-    [SerializeField] private float playerMaxHealth = 10f;
-    [SerializeField] private float playerPresentHealth;
-    [SerializeField] private float playerDefaultMovementSpeed = 5f;
-    [SerializeField] private float playerMovementSpeed;
-    [SerializeField] private float playerDashSpeed = 4f;
-    [SerializeField] private float playerDashTime = .2f;
-    [SerializeField] private float playerDashCD = .5f;
 
     [SerializeField] private TrailRenderer dashTrailRenderer;
 
@@ -28,6 +16,9 @@ public class PlayerController : Singleton<PlayerController>
     private Rigidbody2D player_rb;
     private Animator playerMovingAnim;
     private SpriteRenderer playerSpriteRenderer;
+    private float dashTime = .2f;
+
+    public CharacterStar playerInfo;
 
     private bool isFacingLeft = false;
     private bool isDashing;
@@ -40,18 +31,17 @@ public class PlayerController : Singleton<PlayerController>
         base.Awake();
 
         playerControls = new PlayerControls();
+
         player_rb = GetComponent<Rigidbody2D>();
         playerMovingAnim = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        playerInfo = new CharacterStar();
+        CreatePlayer(playerInfo);
     }
 
     private void Start()
     {
-        // set health on starting game
-        playerPresentHealth = playerMaxHealth;
-
-        playerMovementSpeed = playerDefaultMovementSpeed;
-
         playerControls.Combat.Dash.performed += _ => Dash();
     }
 
@@ -89,7 +79,8 @@ public class PlayerController : Singleton<PlayerController>
     // set move for player
     private void PlayerMove()
     {
-        player_rb.MovePosition(player_rb.position + player_Movement * (playerMovementSpeed * Time.fixedDeltaTime));
+        player_rb.MovePosition(player_rb.position + player_Movement *
+            (playerInfo.Get_FloatProperty(PropertyType.move_speed) * Time.fixedDeltaTime));
     }
 
     // player has facing to mouse
@@ -119,26 +110,47 @@ public class PlayerController : Singleton<PlayerController>
         if (isDashing) { return; }
 
         isDashing = true;
-        playerMovementSpeed *= playerDashSpeed;
+        playerInfo.Set_Property(PropertyType.move_speed, playerInfo.Get_FloatProperty(PropertyType.dash_amount));
         dashTrailRenderer.emitting = true;
-        StartCoroutine(EndDashRoutine(playerDashTime, playerDashCD));
+        StartCoroutine(EndDashRoutine());
     }
 
     ///
     /// create EndDash Routine Method
     ///
-    private IEnumerator EndDashRoutine(float dashTime, float dashCD)
+    private IEnumerator EndDashRoutine()
     {
         // feature code
         yield return new WaitForSeconds(dashTime);
-        playerMovementSpeed = playerDefaultMovementSpeed;
+        playerInfo.Set_Property(PropertyType.move_speed, playerInfo.Get_FloatProperty(PropertyType.defaut_move_speed));
         dashTrailRenderer.emitting = false;
-        yield return new WaitForSeconds(dashCD);
+        yield return new WaitForSeconds(playerInfo.Get_FloatProperty(PropertyType.dash_cd));
         isDashing = false;
     }
 
-    public void PlayerTakeDamage(float damageAmount)
+    // add data
+    private void CreatePlayer(CharacterStar player)
     {
-        PlayerPresentHealth -= damageAmount;
+        player.Add_Property(new StringProperty(PropertyType.name, "Yuit"));
+        player.Add_Property(new IntProperty(PropertyType.level, 1));
+
+        player.Add_Property(new IntProperty(PropertyType.health_point, 100));
+        player.Add_Property(new IntProperty(PropertyType.max_health_point, 100));
+
+        player.Add_Property(new IntProperty(PropertyType.mana_point, 20));
+        player.Add_Property(new IntProperty(PropertyType.max_mana_point, 20));
+
+        player.Add_Property(new FloatProperty(PropertyType.defaut_move_speed, 5f));
+        player.Add_Property(new FloatProperty(PropertyType.move_speed, 5f));
+
+        player.Add_Property(new FloatProperty(PropertyType.dash_amount, 20f));
+        player.Add_Property(new FloatProperty(PropertyType.dash_cd, 1f));
+
+        player.Add_Property(new IntProperty(PropertyType.attack_amount, 1));
+        player.Add_Property(new FloatProperty(PropertyType.attack_speed, .5f));
+
+        player.Add_Property(new IntProperty(PropertyType.defense_amount, 3));
+
+        player.Add_Property(new IntProperty(PropertyType.anti_effect, 30));
     }
 }

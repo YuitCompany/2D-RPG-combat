@@ -14,7 +14,7 @@ public class EnemyHealthBar : MonoBehaviour
     // Unity System Method
     private void Awake()
     {
-        enemyHealth = GetComponent<EnemyHealth>();
+        enemyHealth = GetComponentInParent<EnemyHealth>();
     }
 
     private void Start()

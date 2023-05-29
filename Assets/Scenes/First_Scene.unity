@@ -437,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38504ba21bc243748b9716673b136b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!1001 &139443678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8045,11 +8044,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_LightType: 1
-  m_BlendStyleIndex: 3
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0, a: 1}
-  m_Intensity: 4
-  m_LightVolumeIntensity: 0.06
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.748
+  m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 0.1
   m_LightVolumeIntensityEnabled: 1
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -8060,10 +8059,10 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 1
-  m_ShadowIntensity: 0.205
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.458
   m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
+  m_ShadowVolumeIntensity: 0.119
   m_Vertices:
   - position: {x: 16.608223, y: -8.996647, z: 0}
     color: {r: 0, g: 0, b: 0, a: 1}
@@ -19229,7 +19228,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
   looping: 1
-  prewarm: 1
+  prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -31981,6 +31980,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1611387445329206894, guid: f29d305af97f71d4fb048a07b8171377, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5505296850754447471, guid: f29d305af97f71d4fb048a07b8171377, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -31992,6 +31995,10 @@ PrefabInstance:
     - target: {fileID: 7066466638428842311, guid: f29d305af97f71d4fb048a07b8171377, type: 3}
       propertyPath: m_Name
       value: Slime (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8870717907303165016, guid: f29d305af97f71d4fb048a07b8171377, type: 3}
+      propertyPath: attackSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f29d305af97f71d4fb048a07b8171377, type: 3}
@@ -32124,13 +32131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2007314ff772ae43aee537a64032d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMaxHealth: 10
-  playerPresentHealth: 0
-  playerDefaultMovementSpeed: 5
-  playerMovementSpeed: 6
-  playerDashSpeed: 4
-  playerDashTime: 0.2
-  playerDashCD: 0.5
   dashTrailRenderer: {fileID: 1872822406}
 --- !u!95 &2053899047
 Animator:

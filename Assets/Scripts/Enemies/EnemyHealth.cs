@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int MaxHealth { set { maxHealth = value; } get { return MaxHealth; } }
-    public int CurrentHealth { set { currentHealth = value; } get { return currentHealth; } }
+    public float MaxHealth { get { return maxHealth; } }
+    public float CurrentHealth { get { return currentHealth; } set { currentHealth = value; } }
 
-    [SerializeField] private int maxHealth = 3;
-    [SerializeField] private GameObject DeathVFXPrefas;
+    [SerializeField] private float maxHealth = 3;
+    [SerializeField] private float currentHealth;
     [SerializeField] private float knockBackThrust = 15f;
+    [SerializeField] private GameObject DeathVFXPrefas;
 
-    private int currentHealth;
     private KnockBack knockBack;
     private Flash flash;
 
