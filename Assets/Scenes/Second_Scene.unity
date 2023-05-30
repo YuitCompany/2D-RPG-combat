@@ -413,7 +413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38504ba21bc243748b9716673b136b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
 --- !u!1001 &139443678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8138,7 +8137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.832478, y: -6.71999, z: -10}
+  m_LocalPosition: {x: -6.847823, y: -6.71999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13258,6 +13257,7 @@ GameObject:
   - component: {fileID: 1261462329}
   - component: {fileID: 1261462332}
   - component: {fileID: 1261462331}
+  - component: {fileID: 1261462333}
   m_Layer: 0
   m_Name: Caponys
   m_TagString: Untagged
@@ -16885,6 +16885,19 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!114 &1261462333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261462327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f768a9411e25d94db03c74d00a98b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxOffset: -0.12
 --- !u!1001 &1274371501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20057,11 +20070,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2007314ff772ae43aee537a64032d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDefaultMovementSpeed: 5
-  playerMovementSpeed: 6
-  playerDashSpeed: 4
-  playerDashTime: 0.2
-  playerDashCD: 0.5
   dashTrailRenderer: {fileID: 1872822406}
 --- !u!95 &2053899047
 Animator:

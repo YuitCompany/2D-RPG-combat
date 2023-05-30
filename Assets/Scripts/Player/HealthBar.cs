@@ -29,13 +29,13 @@ public class HealthBar : Singleton <HealthBar>
 
     private void SetMaxHealthBar()
     {
-        sliderHealth.maxValue = PlayerController.Instance.playerInfo.Get_IntProperty(PropertyType.max_health_point);
+        sliderHealth.maxValue = PlayerController.Instance.playerInfo.Get_IntProperty(PlayerProperty.max_health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(1f);
     }
 
     public void SetPresentHealthBar()
     {
-        sliderHealth.value = PlayerController.Instance.playerInfo.Get_IntProperty(PropertyType.health_point);
+        sliderHealth.value = PlayerController.Instance.playerInfo.Get_IntProperty(PlayerProperty.health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(sliderHealth.normalizedValue);
     }
 }

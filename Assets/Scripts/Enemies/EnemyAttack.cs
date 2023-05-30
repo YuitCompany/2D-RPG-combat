@@ -16,7 +16,7 @@ public class EnemyAttack : MonoBehaviour
     {
         PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
         if(playerController && !isAttacked)
-        {
+        {   
             PlayerTakeDamage(damageAmount);
             DoneAttacked();
             StartCoroutine(AttackedRoutine(attackSpeed));
@@ -47,6 +47,6 @@ public class EnemyAttack : MonoBehaviour
 
     public void PlayerTakeDamage(int damageAmount)
     {
-        PlayerController.Instance.playerInfo.Change_Property(PropertyType.health_point, -damageAmount);
+        PlayerController.Instance.playerInfo.Change_Property(PlayerProperty.health_point, -damageAmount);
     }
 }

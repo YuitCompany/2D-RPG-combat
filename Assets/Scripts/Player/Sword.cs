@@ -54,7 +54,9 @@ public class Sword : MonoBehaviour
     // get trigger create motion for sword
     private void Attack()
     {
-        if(isAttacking) { return; }
+        // isAttacking Check for CD attack
+        // swordAnim fix MissingReferenceException for Animator object
+        if (isAttacking || swordAnim == null) { return; }
 
         isAttacking = true;
         // set Trigger
@@ -122,7 +124,7 @@ public class Sword : MonoBehaviour
     private IEnumerator EndAttackRoutine()
     {
         // feature code
-        yield return new WaitForSeconds(PlayerController.Instance.playerInfo.Get_FloatProperty(PropertyType.attack_speed));
+        yield return new WaitForSeconds(PlayerController.Instance.playerInfo.Get_FloatProperty(PlayerProperty.attack_speed));
         isAttacking = false;
     }
 }

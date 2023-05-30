@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class AreaExit : MonoBehaviour
 {
+    [SerializeField] private UILoadScene loaderBar;
     [SerializeField] private string sceneToLoad;
     [SerializeField] private string sceneTransitionName;
 
-    private float waitToLoadTime = 1f;
+    private void Update()
+    {
+        loaderBar = FindAnyObjectByType<UILoadScene>();
+    }
 
     // checker Player move to ExitScene Collision
     // and change present Scene (SceneTransitionName)
@@ -17,22 +21,7 @@ public class AreaExit : MonoBehaviour
         if(collision.gameObject.GetComponent<PlayerController>())
         {
             SceneManagement.Instance.SetTransitionName(this.sceneTransitionName);
-
-            UIFade.Instance.FadeToBlack();
-            StartCoroutine(LoadSceneRoutine());
+            loaderBar.LoadSceneAnim(this.sceneToLoad);
         }
-    }
-
-    /// create LoadSceneRoutine Method
-    private IEnumerator LoadSceneRoutine()
-    {
-        while (waitToLoadTime >= 0)
-        {
-            waitToLoadTime -= Time.deltaTime;
-            yield return null;
-        }
-        // feature code
-        SceneManager.LoadScene(sceneToLoad);
-        UIFade.Instance.FadeToClear();
     }
 }

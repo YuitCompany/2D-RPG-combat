@@ -7,7 +7,7 @@ using UnityEngine;
 namespace BaseCharacter
 {
     // base character status
-    public enum PropertyType
+    public enum PlayerProperty
     {
         name,
         level,
@@ -26,26 +26,26 @@ namespace BaseCharacter
     }
 
     // base set Property
-    public interface BaseProperty<T>
+    public interface BaseProperty<V, T>
     {
-        PropertyType GetType();
+        V GetType();
         T Value { get; set; }
     }
 
     // base data for int tpye
-    public class IntProperty : BaseProperty<int>
+    public class IntProperty : BaseProperty<PlayerProperty, int>
     {
-        protected PropertyType type;
+        protected PlayerProperty type;
         protected int value;
 
         // Constructor
-        public IntProperty(PropertyType type, int value)
+        public IntProperty(PlayerProperty type, int value)
         {
             this.type = type;
             this.value = value;
         }
 
-        public PropertyType GetType()
+        public PlayerProperty GetType()
         {
             return type;
         }
@@ -55,18 +55,18 @@ namespace BaseCharacter
     }
 
     // base data for float type
-    public class FloatProperty : BaseProperty<float>
+    public class FloatProperty : BaseProperty<PlayerProperty, float>
     {
-        protected PropertyType type;
+        protected PlayerProperty type;
         protected float value;
 
-        public FloatProperty(PropertyType type, float value)
+        public FloatProperty(PlayerProperty type, float value)
         {
             this.type = type;
             this.value = value;
         }        
 
-        public PropertyType GetType()
+        public PlayerProperty GetType()
         {
             return type;
         }
@@ -76,18 +76,18 @@ namespace BaseCharacter
     }
 
     // base data for string type
-    public class StringProperty : BaseProperty<string>
+    public class StringProperty : BaseProperty<PlayerProperty, string>
     {
-        protected PropertyType type;
+        protected PlayerProperty type;
         protected string value;
 
-        public StringProperty(PropertyType type, string value)
+        public StringProperty(PlayerProperty type, string value)
         {
             this.type = type;
             this.value= value;
         }
 
-        public PropertyType GetType()
+        public PlayerProperty GetType()
         {
             return type;
         }
@@ -100,15 +100,15 @@ namespace BaseCharacter
     public class CharacterStar
     {
         // data save location
-        private Dictionary<PropertyType, IntProperty> Dic_IntProperty = new Dictionary<PropertyType, IntProperty>();
-        private Dictionary<PropertyType, FloatProperty> Dic_FloatProperty = new Dictionary<PropertyType, FloatProperty>();
-        private Dictionary<PropertyType, StringProperty> Dic_StringProperty = new Dictionary<PropertyType, StringProperty>();
+        private Dictionary<PlayerProperty, IntProperty> Dic_IntProperty = new Dictionary<PlayerProperty, IntProperty>();
+        private Dictionary<PlayerProperty, FloatProperty> Dic_FloatProperty = new Dictionary<PlayerProperty, FloatProperty>();
+        private Dictionary<PlayerProperty, StringProperty> Dic_StringProperty = new Dictionary<PlayerProperty, StringProperty>();
 
 
         // overload Method Add_Property
         public void Add_Property(IntProperty intProperty)
         {
-            PropertyType type = intProperty.GetType();
+            PlayerProperty type = intProperty.GetType();
             if (!Dic_IntProperty.ContainsKey(type))
             {
                 Dic_IntProperty.Add(type, intProperty);
@@ -116,7 +116,7 @@ namespace BaseCharacter
         }
         public void Add_Property(FloatProperty floatProperty)
         {
-            PropertyType type = floatProperty.GetType();
+            PlayerProperty type = floatProperty.GetType();
             if (!Dic_FloatProperty.ContainsKey(type))
             {
                 Dic_FloatProperty.Add(type, floatProperty);
@@ -124,7 +124,7 @@ namespace BaseCharacter
         }
         public void Add_Property(StringProperty stringProperty)
         {
-            PropertyType type = stringProperty.GetType();
+            PlayerProperty type = stringProperty.GetType();
             if (!Dic_StringProperty.ContainsKey(type))
             {
                 Dic_StringProperty.Add(type, stringProperty);
@@ -132,20 +132,20 @@ namespace BaseCharacter
         }
 
         // get value
-        public int Get_IntProperty(PropertyType type)
+        public int Get_IntProperty(PlayerProperty type)
         {
 
             if (!Dic_IntProperty.ContainsKey(type)) return 0;
 
             return Dic_IntProperty[type].Value;
         }
-        public float Get_FloatProperty(PropertyType type)
+        public float Get_FloatProperty(PlayerProperty type)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return 0f;
 
             return Dic_FloatProperty[type].Value;
         }
-        public string Get_StringProperty(PropertyType type)
+        public string Get_StringProperty(PlayerProperty type)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return "";
 
@@ -153,19 +153,19 @@ namespace BaseCharacter
         }
 
         // set value
-        public void Set_Property(PropertyType type, int value)
+        public void Set_Property(PlayerProperty type, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
             Dic_IntProperty[type].Value = value;
         }
-        public void Set_Property(PropertyType type, float value)
+        public void Set_Property(PlayerProperty type, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
             Dic_FloatProperty[type].Value = value;
         }
-        public void Set_Property(PropertyType type, string value)
+        public void Set_Property(PlayerProperty type, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 
@@ -173,19 +173,19 @@ namespace BaseCharacter
         }
 
         // change value
-        public void Change_Property(PropertyType type, int value)
+        public void Change_Property(PlayerProperty type, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
             Dic_IntProperty[type].Value += value;
         }
-        public void Change_Property(PropertyType type, float value)
+        public void Change_Property(PlayerProperty type, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
             Dic_FloatProperty[type].Value += value;
         }
-        public void Change_Property(PropertyType type, string value)
+        public void Change_Property(PlayerProperty type, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 
