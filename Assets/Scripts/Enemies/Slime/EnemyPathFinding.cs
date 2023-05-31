@@ -1,3 +1,4 @@
+using BaseMonster;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public class EnemyPathFinding : MonoBehaviour
 {
-    [SerializeField] private float slimeMoveSpeed = 2f;
+    [SerializeField] private SlimeStats slimeStats;
 
     private Rigidbody2D slime_rb;
     private Vector2 moveDir;
@@ -18,6 +19,7 @@ public class EnemyPathFinding : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        slimeStats = GetComponentInParent<SlimeStats>();
         slime_rb = GetComponent<Rigidbody2D>();
         slimeMovingAnim = GetComponent<Animator>();
         slimeSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,7 +29,8 @@ public class EnemyPathFinding : MonoBehaviour
     private void FixedUpdate()
     {
         if (knockBack.IsKnockedBack) { return; }
-        slime_rb.MovePosition(slime_rb.position + moveDir * (slimeMoveSpeed * Time.fixedDeltaTime));
+        slime_rb.MovePosition(slime_rb.position + moveDir * 
+            (slimeStats.Get_FloatStatusSlime(MonsterProperty.move_speed) * Time.fixedDeltaTime));
     }
 
     /// <summary>

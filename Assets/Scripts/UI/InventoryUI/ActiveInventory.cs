@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class ActiveInventory : MonoBehaviour
 {
+    private PlayerControls playerControls;
     private int ActiveSlotIndex = 0;
 
-    private PlayerControls playerControls;
-
-
-    /// <summary>
-    /// Unity System Method
-    /// </summary>
     private void Awake()
     {
         playerControls = new PlayerControls();
@@ -23,21 +18,30 @@ public class ActiveInventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ActiveInventory Private Method
+    /// OnEnable Method
+    /// Enable Inventory Keyboard
     /// </summary>
-    // enable PlayerControls
     private void OnEnable()
     {
         playerControls.Enable();
     }
-
-    // Acvtive Slot
+    
+    /// <summary>
+    /// ToggleActiveSlot Method
+    /// Active Inventory Slot
+    /// </summary>
+    /// <param name="indexValue">Inventory Slot</param>
     private void ToggleActiveSlot(int indexValue)
     {
         ToggleActiveHighlight(indexValue - 1);
     }
 
-    // Reset and Set Active InventorySlot Highlight
+    /// <summary>
+    /// ToggleActiveHighlight Method
+    /// Active And Highlight New Inventory Slot
+    /// Inactive And Remove Highlight Old Inventory Slot
+    /// </summary>
+    /// <param name="indexValue">Inventory Slot</param>
     private void ToggleActiveHighlight(int indexValue)
     {
         ActiveSlotIndex = indexValue;

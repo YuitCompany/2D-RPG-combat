@@ -8,10 +8,12 @@ public class UIFade : Singleton<UIFade>
     [SerializeField] private Image fadeSceneImage;
     [SerializeField] private float fadeSpeed = 1f;
 
-    ///
-    /// create Fade Routine Method
-    /// StartCoroutine(FadeRoutine());
-    ///
+    /// <summary>
+    /// FadeRountine Method
+    /// Object Will Disappear/Appear if targetAlpha(0f -> 1f) is Changed
+    /// </summary>
+    /// <param name="targetAlpha">Transparent Value</param>
+    /// <returns>IEnumerator</returns>
     public IEnumerator FadeRoutine(float targetAlpha)
     {
         while (!Mathf.Approximately(fadeSceneImage.color.a, targetAlpha))

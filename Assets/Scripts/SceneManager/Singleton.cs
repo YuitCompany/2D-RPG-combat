@@ -8,8 +8,10 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 
     private static T instance;
 
-
-    // create custom virtual Awake Method
+    /// <summary>
+    /// Create Custom virtual Awake
+    /// Object Will Not Be Destroyed When Load New Scene
+    /// </summary>
     protected virtual void Awake()
     {
         if(instance != null && this.gameObject != null)

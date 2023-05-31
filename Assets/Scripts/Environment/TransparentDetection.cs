@@ -19,8 +19,12 @@ public class TransparentDetection : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         tilemap = GetComponent<Tilemap>();
     }
-     
-    // start change opaty (Object)
+
+    /// <summary>
+    /// OnTriggerEnter2D Method
+    /// Blur Object When Player Behind
+    /// </summary>
+    /// <param name="collision">Check For Player Has Moved Behind The Object</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
@@ -36,7 +40,11 @@ public class TransparentDetection : MonoBehaviour
         }
     }
 
-    // stop change opaty (Object)
+    /// <summary>
+    /// OnTriggerExit2D Method
+    /// End Of Blur Object When Player Behind
+    /// </summary>
+    /// <param name="collision">Check For Player Has Left Behind The Object</param>
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
@@ -51,8 +59,16 @@ public class TransparentDetection : MonoBehaviour
             }
         }
     }
-
-    // hidden Objet when player Move to Objet (SriteRenderer/Tilemap)
+    
+    /// <summary>
+    /// FadeOnMoveRoutine OveLoad Method
+    /// Blur Object (SriteRenderer/Tilemap)
+    /// </summary>
+    /// <param name="spriteRenderer">Object SpriteRenderer</param>
+    /// <param name="fadeTime">Time For Fade Routine</param>
+    /// <param name="startValue">Start Alpha Color On RBGA</param>
+    /// <param name="targetTransParencyAmount">Target TransParency</param>
+    /// <returns>IEnumerator</returns>
     private IEnumerator FadeOnMoveRoutine(SpriteRenderer spriteRenderer, float fadeTime, float startValue, float targetTransParencyAmount)
     {
         float elapsedTime = 0;

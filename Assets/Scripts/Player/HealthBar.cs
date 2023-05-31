@@ -1,24 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 using BaseCharacter;
-using Unity.VisualScripting;
 
 public class HealthBar : Singleton <HealthBar>
 {
+    [SerializeField] private PlayerStats playerStats;
     [SerializeField] private Slider sliderHealth;
     [SerializeField] private Gradient gradientHealthColor;
     [SerializeField] private Image fillColorHealth;
-
-    private void Awake()
-    {
-        sliderHealth = GetComponent<Slider>();
-    }
-
+    
     private void Start()
     {
+        playerStats = FindFirstObjectByType<PlayerStats>();
         SetMaxHealthBar();
     }
 
@@ -27,15 +21,25 @@ public class HealthBar : Singleton <HealthBar>
         SetPresentHealthBar();
     }
 
+    /// <summary>
+    /// SetMaxHealthBar Method
+    /// set Slider.maxValue = Player.max_health
+    /// set Color.color = Gradient.Evaluate With 1f
+    /// </summary>
     private void SetMaxHealthBar()
     {
-        sliderHealth.maxValue = PlayerController.Instance.playerInfo.Get_IntProperty(PlayerProperty.max_health_point);
+        sliderHealth.maxValue = playerStats.Get_IntStatusPlayer(CharacterProperty.max_health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(1f);
     }
 
+    /// <summary>
+    /// SetPresentHealthBar Method
+    /// set Slider.value = Player.health
+    /// set Color.color = Gradient.Evaluate With Slider
+    /// </summary>
     public void SetPresentHealthBar()
     {
-        sliderHealth.value = PlayerController.Instance.playerInfo.Get_IntProperty(PlayerProperty.health_point);
+        sliderHealth.value = playerStats.Get_IntStatusPlayer(CharacterProperty.health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(sliderHealth.normalizedValue);
     }
 }

@@ -1,3 +1,4 @@
+using BaseMonster;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,15 @@ using UnityEngine.UI;
 
 public class EnemyHealthBar : MonoBehaviour
 {
+    [SerializeField] private SlimeStats slimeStats;
     [SerializeField] private Slider sliderHealth;
     [SerializeField] private Gradient gradientHealthColor;
     [SerializeField] private Image fillColorHealth;
 
-    [SerializeField] private EnemyHealth enemyHealth;
-
     // Unity System Method
     private void Awake()
     {
-        enemyHealth = GetComponentInParent<EnemyHealth>();
+        slimeStats = GetComponentInParent<SlimeStats>();
     }
 
     private void Start()
@@ -27,17 +27,25 @@ public class EnemyHealthBar : MonoBehaviour
         SetPresentHealthBar();
     }
 
-    // Private Method
+    /// <summary>
+    /// SetMaxHealthBar Method
+    /// set Slider.maxValue = slime.max_health
+    /// set Color.color = Gradient.Evaluate With 1f
+    /// </summary>
     private void SetMaxHealthBar()
     {
-        sliderHealth.maxValue = enemyHealth.MaxHealth;
+        sliderHealth.maxValue = (float)slimeStats.Get_IntStatusSlime(MonsterProperty.max_health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(1f);
     }
 
-    // Public Method
+    /// <summary>
+    /// SetPresentHealthBar Method
+    /// set Slider.value = Slime.health
+    /// set Color.color = Gradient.Evaluate With Slider
+    /// </summary>
     public void SetPresentHealthBar()
     {
-        sliderHealth.value = enemyHealth.CurrentHealth;
+        sliderHealth.value = (float)slimeStats.Get_IntStatusSlime(MonsterProperty.health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(sliderHealth.normalizedValue);
     }
 }

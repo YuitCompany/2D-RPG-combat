@@ -8,30 +8,35 @@ public class KnockBack : MonoBehaviour
 
     [SerializeField] private float knockBackTime = .2f;
 
-
     private Rigidbody2D rb;
 
-    /// <summary>
-    /// Unity Sytem Method
-    /// </summary>
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    
-    ///
-    /// create KockBack Routine Method
-    ///
+
+    /// <summary>
+    /// KockBackRoutine Method
+    /// After KnockBackTime(S) Will Be:
+    /// Reset IsKnoedBack: false
+    /// Reset rb.Velocity: Vector2.rezo
+    /// </summary>
+    /// <param name="knockBackTime"></param>
+    /// <returns>IEnumerator</returns>
     private IEnumerator KockBackRoutine(float knockBackTime)
     {
         yield return new WaitForSeconds(knockBackTime);
-        rb.velocity = Vector2.zero;
         IsKnockedBack = false;
+        rb.velocity = Vector2.zero;
     }
 
     /// <summary>
-    /// KnockBack Public Method
+    /// GetKnockedBack Method
+    /// Set IsKnockedBack: true
+    /// Set rb.AddFore With this.Position, Attacker.Position and Thrust Power
     /// </summary>
+    /// <param name="damageSource">Transform Attacker</param>
+    /// <param name="knockBackThrust">Thrust Power</param>
     public void GetKnockedBack(Transform damageSource, float knockBackThrust)
     {
         IsKnockedBack = true;

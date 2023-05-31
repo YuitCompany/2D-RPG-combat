@@ -12,16 +12,25 @@ public class UILoadScene : Singleton<UILoadScene>
     [SerializeField] private Image fillColorLoader;
 
     private IEnumerator loadSceneRoutine;
-    private float loadtime = 1f;
+    private float defaultLoadTime = 1f;
 
+    
     /// <summary>
-    /// private Method
+    /// Set Slider.MaxValue With Value
+    /// Set Image.Color With Gradient.Evaluate With 1f value
     /// </summary>
+    /// <param name="value">Value Set For Slider.MaxValue</param>
     private void SetMaxLoaderBar(float value)
     {
         sliderLoader.maxValue = value;
         fillColorLoader.color = gradientLoaderColor.Evaluate(1f);
     }
+
+    /// <summary>
+    /// Set Slider.Value With Value
+    /// Set Image.Color With Gradient.Evaluate using Slider
+    /// </summary>
+    /// <param name="value">Value Set For Slider.MaxValue</param>
     private void SetCurrentLoaderBar(float value)
     {
         sliderLoader.value = value;
@@ -29,44 +38,42 @@ public class UILoadScene : Singleton<UILoadScene>
     }
 
     /// <summary>
-    /// Pulbic Method
+    /// LoadSceneRoutine Method
+    /// Load New Scene With Name: sceneToLoad
+    /// Change Slider.Value
     /// </summary>
-    private void SetSliderValue()
-    {
-        SetMaxLoaderBar(1f);
-        SetCurrentLoaderBar(0f);
-    }
-
-    private void ChangeSliderValue(float value)
-    {
-        SetCurrentLoaderBar(value);
-    }
-
-    /// create LoadScene Routine Method
+    /// <param name="sceneToLoad">Scene Will Be Load</param>
+    /// <returns>IEnumerator</returns>
     private IEnumerator LoadSceneRoutine(string sceneToLoad)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneToLoad);
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            ChangeSliderValue(progress);
+            SetCurrentLoaderBar(progress);
             yield return null;
         }
     }
 
-    ///
-    /// create DelayForAnimRoutine Method
-    /// StartCoroutine(DelayForAnimRoutine(loadTime));
-    ///
-    private IEnumerator FadedAnimRoutine(string sceneToLoad)
+    /// <summary>
+    /// FadedAnimRoutine Method
+    /// Set Slider Value And MaxValue
+    /// Start Fade Scene: FadeToBlack
+    /// DelayRoutine: While
+    /// Active Slider And Load New Scene
+    /// </summary>
+    /// <param name="sceneToLoad">Scene Will Be Load</param>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator FadedAnimRoutine(float loadTime, string sceneToLoad)
     {
-        SetSliderValue();
+        SetMaxLoaderBar(1f);
+        SetCurrentLoaderBar(0f);
         // Before Load Time Code
         FadeToBlack();
 
-        while (loadtime >= 0)
+        while (loadTime >= 0)
         {
-            loadtime -= Time.deltaTime;
+            loadTime -= Time.deltaTime;
             // while load time code
             yield return null;
         }
@@ -74,6 +81,12 @@ public class UILoadScene : Singleton<UILoadScene>
         sliderLoader.gameObject.SetActive(true);
         LoadSceneBar(sceneToLoad);
     }
+    /// <summary>
+    /// ClearAnimRoutine Method
+    /// Wait For 2(S) Before 
+    /// Inactive Slider And Clear Fade Scene: FadeToClear
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ClearAnimRoutine()
     {
         yield return new WaitForSeconds(2f);
@@ -81,7 +94,10 @@ public class UILoadScene : Singleton<UILoadScene>
         FadeToClear();
     }
 
-    // stard load scene
+    /// <summary>
+    /// LoadCreneBar Method
+    /// Loading Screne
+    /// </summary>
     private void LoadSceneBar(string sceneToLoad)
     {
         if (loadSceneRoutine != null)
@@ -93,7 +109,10 @@ public class UILoadScene : Singleton<UILoadScene>
         StartCoroutine(loadSceneRoutine);
     }
 
-    // start fade scene
+    /// <summary>
+    /// FadeToBlack Method
+    /// Start Fade Screne
+    /// </summary>
     private void FadeToBlack()
     {
         if (loadSceneRoutine != null)
@@ -105,7 +124,10 @@ public class UILoadScene : Singleton<UILoadScene>
         StartCoroutine(loadSceneRoutine);
     }
 
-    // stop fade scene
+    /// <summary>
+    /// FadeToClear Method
+    /// Stop Fade Screne
+    /// </summary>
     private void FadeToClear()
     {
         if (loadSceneRoutine != null)
@@ -118,12 +140,14 @@ public class UILoadScene : Singleton<UILoadScene>
     }
 
     /// <summary>
-    /// Public Method
+    /// LoadSceneAnim Method
+    /// Using FadeToLoad/FadeToClear/LoadCene Method
+    /// For Load New Scene
     /// </summary>
-    //// LoadScene Method Using FadeToLoad/FadeToClear/LoadCene Method
+    /// <param name="sceneToLoad">Scene Will Be Load</param>
     public void LoadSceneAnim(string sceneToLoad)
     {
-        StartCoroutine(FadedAnimRoutine(sceneToLoad));
+        StartCoroutine(FadedAnimRoutine(defaultLoadTime, sceneToLoad));
         StartCoroutine(ClearAnimRoutine());
     }
 }

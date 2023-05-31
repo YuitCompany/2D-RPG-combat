@@ -8,10 +8,10 @@ public class AreaEntrance : MonoBehaviour
 {
     [SerializeField] private string transitionName;
 
-    // checker present Scene (SceneTransitionName)
-    // and move to Scene (transitionName)
     private void Start()
     {
+        // checker present Scene (SceneTransitionName)
+        // and move to Scene (transitionName)
         if(this.transitionName == SceneManagement.Instance.SceneTransitionName)
         {
             PlayerController.Instance.transform.position = this.transform.position;

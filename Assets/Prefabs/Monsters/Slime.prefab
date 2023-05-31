@@ -333,8 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbff44511a5cb447b6495f22b667d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  attackSpeed: 1
+  slimeStats: {fileID: 7698046505421463225}
 --- !u!1 &7066466638428842311
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,9 +347,10 @@ GameObject:
   - component: {fileID: 6292029818760470946}
   - component: {fileID: 1182061249275028985}
   - component: {fileID: 6376003676201633811}
+  - component: {fileID: 7698046505421463225}
+  - component: {fileID: 1926211813922320160}
   - component: {fileID: 267695951}
   - component: {fileID: 267695952}
-  - component: {fileID: 1926211813922320160}
   - component: {fileID: 1618765298}
   - component: {fileID: 4402202042133343170}
   m_Layer: 0
@@ -488,6 +488,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7698046505421463225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066466638428842311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3fe88da5afe7df478726583c0f98ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1926211813922320160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066466638428842311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dbdc924ac5a1e4cbfbfe810d7222cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackThrust: 15
+  DeathVFXPrefas: {fileID: 2394373674368704264, guid: 100fa66efc299f648a1d89b25040b1f3, type: 3}
+  slimeStats: {fileID: 7698046505421463225}
 --- !u!114 &267695951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407ca69f665ebf942bdb6c0e7c92a2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeMoveSpeed: 1.5
+  slimeStats: {fileID: 7698046505421463225}
 --- !u!114 &267695952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,22 +541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamChangeDirTime: 2
---- !u!114 &1926211813922320160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7066466638428842311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29dbdc924ac5a1e4cbfbfe810d7222cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
-  currentHealth: 0
-  knockBackThrust: 15
-  DeathVFXPrefas: {fileID: 2394373674368704264, guid: 100fa66efc299f648a1d89b25040b1f3, type: 3}
 --- !u!114 &1618765298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,6 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9276bdee54b8134dbd6c66a2570204c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimeStats: {fileID: 7698046505421463225}
   sliderHealth: {fileID: 8965240103416983363}
   gradientHealthColor:
     serializedVersion: 2
@@ -691,7 +703,6 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fillColorHealth: {fileID: 3361578198792369380}
-  enemyHealth: {fileID: 1926211813922320160}
 --- !u!1 &8281286002071232311
 GameObject:
   m_ObjectHideFlags: 0

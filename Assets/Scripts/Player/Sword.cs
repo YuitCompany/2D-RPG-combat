@@ -9,6 +9,7 @@ using BaseCharacter;
 
 public class Sword : MonoBehaviour
 {
+    [SerializeField] private PlayerStats playerStats;
     [SerializeField] private GameObject slashAnimPrefas;
     [SerializeField] private Transform slashAnimSpamPoint;
 
@@ -16,16 +17,13 @@ public class Sword : MonoBehaviour
     private Animator swordAnim;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
-
     private GameObject slashAnim;
 
     private bool isAttacking;
 
-    /// <summary>
-    /// Unity System method
-    /// </summary>
     private void Awake()
     {
+        playerStats = GetComponentInParent<PlayerStats>();
         playerController = GetComponentInParent<PlayerController>();
         activeWeapon = GetComponentInParent<ActiveWeapon>();
         swordAnim = GetComponent<Animator>();
@@ -43,35 +41,19 @@ public class Sword : MonoBehaviour
     }
 
     /// <summary>
-    /// Sword Private Method
+    /// OnEnable Method
+    /// Enable Attack Keyboard
     /// </summary>
-    // enable for PlayerControls Script on class
     private void OnEnable()
     {
         playerControls.Enable();
     }
 
-    // get trigger create motion for sword
-    private void Attack()
-    {
-        // isAttacking Check for CD attack
-        // swordAnim fix MissingReferenceException for Animator object
-        if (isAttacking || swordAnim == null) { return; }
-
-        isAttacking = true;
-        // set Trigger
-        swordAnim.SetTrigger("Attack");
-        // Enable Sword Collider
-        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-
-        // spawm slash anim
-        slashAnim = Instantiate(slashAnimPrefas, slashAnimSpamPoint.position, Quaternion.identity);
-        slashAnim.transform.parent = this.transform.parent;
-
-        StartCoroutine(EndAttackRoutine());
-    }
-
-    // sword has facing to mouse
+    /// <summary>
+    /// MouseFollowWithOffset Method
+    /// Player Will Loot At Mouse(Left/Right)
+    /// And Sword Eke
+    /// </summary>
     private void MouseFollowWithOffset()
     {
         // get mouse position in screen
@@ -90,15 +72,58 @@ public class Sword : MonoBehaviour
     }
 
     /// <summary>
-    /// Sword Public Method
+    /// Attack Method
+    /// When Attacking:
+    /// isAttacking = true
+    /// swordAnim Will Active Through SetTrigger "Attack"
+    /// Sword Collider Will Be Enable
+    /// SlashAnim Will Instance And Set Locate At this.parent
+    /// Start Routine After Attaked
     /// </summary>
-    // unenable Sword Conllider
+    private void Attack()
+    {
+        // isAttacking: Check for CD attack
+        // swordAnim == null: fix MissingReferenceException for Animator object
+        if (isAttacking || swordAnim == null) { return; }
+
+        isAttacking = true;
+        // set Trigger
+        swordAnim.SetTrigger("Attack");
+        // Enable Sword Collider
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+        // spawm slash anim
+        slashAnim = Instantiate(slashAnimPrefas, slashAnimSpamPoint.position, Quaternion.identity);
+        slashAnim.transform.parent = this.transform.parent;
+
+        StartCoroutine(EndAttackRoutine());
+    }
+
+    /// <summary>
+    /// EndAttackRounte Method
+    /// Attack Being CD By Player.attack_speed
+    /// </summary>
+    /// <returns>IEnumerator</returns>
+    private IEnumerator EndAttackRoutine()
+    {
+        // Attack 
+        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(CharacterProperty.attack_speed));
+        isAttacking = false;
+    }
+
+    /// <summary>
+    /// DoneAttackingAnimEvent Method
+    /// Sword Collider Will Be Unenable
+    /// </summary>
     public void DoneAttackingAnimEvent()
     {
         this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
 
-    // rotation slash anim with up attack
+    /// <summary>
+    /// SlashUpFlipAnimEvent Method
+    /// SlashAnim: Rotation 180 For Attack Up Anim
+    /// </summary>
     public void SlashUpFlipAnimEvent()
     {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
@@ -109,7 +134,10 @@ public class Sword : MonoBehaviour
         } 
     }
 
-    // rotation slash anim with down attack
+    /// <summary>
+    /// SlashDownFlipAnimEvent Method
+    /// SlashAnim: Rotation 0 For Attack Down Anim
+    /// </summary>
     public void SlashDownFlipAnimEvent()
     {
         slashAnim.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -120,11 +148,4 @@ public class Sword : MonoBehaviour
         }
     }
 
-    /// create Attacked Routine Method
-    private IEnumerator EndAttackRoutine()
-    {
-        // feature code
-        yield return new WaitForSeconds(PlayerController.Instance.playerInfo.Get_FloatProperty(PlayerProperty.attack_speed));
-        isAttacking = false;
-    }
 }

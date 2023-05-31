@@ -6,9 +6,9 @@ public class SceneManagement : Singleton<SceneManagement>
 {
     public string SceneTransitionName {  get; private set; }
 
-    // Save change present Scene
     public void SetTransitionName(string sceneTransitionName)
     {
+        // Save change present Scene
         this.SceneTransitionName = sceneTransitionName;
     }
 }

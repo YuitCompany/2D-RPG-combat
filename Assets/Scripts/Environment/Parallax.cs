@@ -10,9 +10,6 @@ public class Parallax : MonoBehaviour
     private Vector2 startPos;
     private Vector2 travel => (Vector2)cameraSetParallax.transform.position - startPos;
 
-    /// <summary>
-    /// Unity System Method
-    /// </summary>
     private void Awake()
     {
         cameraSetParallax = Camera.main;
@@ -25,6 +22,7 @@ public class Parallax : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Object Will Be Move Opposite A Bit
         this.transform.position = startPos + travel * parallaxOffset;
     }
 }

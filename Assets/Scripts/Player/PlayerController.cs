@@ -9,6 +9,7 @@ public class PlayerController : Singleton<PlayerController>
 {
     public bool IsFacingLeft { get { return isFacingLeft; } set { isFacingLeft = value; } }
 
+    [SerializeField] private PlayerStats playerStats;
     [SerializeField] private TrailRenderer dashTrailRenderer;
 
     private PlayerControls playerControls;
@@ -18,26 +19,19 @@ public class PlayerController : Singleton<PlayerController>
     private SpriteRenderer playerSpriteRenderer;
     private float dashTime = .2f;
 
-    public CharacterStar playerInfo;
-
     private bool isFacingLeft = false;
     private bool isDashing;
 
-    /// <summary>
-    /// unity system method
-    /// </summary>
     protected override void Awake()
     {
         base.Awake();
 
+        playerStats = GetComponentInParent<PlayerStats>();
         playerControls = new PlayerControls();
 
         player_rb = GetComponent<Rigidbody2D>();
         playerMovingAnim = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
-
-        playerInfo = new CharacterStar();
-        CreatePlayer(playerInfo);
     }
 
     private void Start()
@@ -57,16 +51,19 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     /// <summary>
-    /// PlayerController method
+    /// OnEnable Method
+    /// Enable Movement Keyboard
     /// </summary>
-    
-    // Enable playerControls script
     private void OnEnable()
     {
         playerControls.Enable();
     }
 
-    // get controls input on playerControls
+    /// <summary>
+    /// PlayerInput Method
+    /// Get Move From Keyoard
+    /// Interactive Connection To Anim
+    /// </summary>
     private void PlayerInput()
     {
         player_Movement = playerControls.Movement.Move.ReadValue<Vector2>();
@@ -76,14 +73,20 @@ public class PlayerController : Singleton<PlayerController>
         playerMovingAnim.SetFloat("MoveY", player_Movement.y);
     }
 
-    // set move for player
+    /// <summary>
+    /// PlayerMove Method
+    /// rb.MovePosition using rb.pos, Keyboard.Move, player.move_speed, Time.fixelDeltaTime
+    /// </summary>
     private void PlayerMove()
     {
         player_rb.MovePosition(player_rb.position + player_Movement *
-            (playerInfo.Get_FloatProperty(PlayerProperty.move_speed) * Time.fixedDeltaTime));
+            (playerStats.Get_FloatStatusPlayer(CharacterProperty.move_speed) * Time.fixedDeltaTime));
     }
 
-    // player has facing to mouse
+    /// <summary>
+    /// PlayerFacingDirection Method
+    /// Player Will Loot At Mouse(Left/Right)
+    /// </summary>
     private void PlayerFacingDirection()
     {
         // get mouse position in screen
@@ -104,53 +107,34 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    // Player has move faster
+    /// <summary>
+    /// Dash Method
+    /// The Player's Specal Abilities
+    /// He Can Move Fast For A Short Time
+    /// </summary>
     private void Dash()
     {
         if (isDashing) { return; }
 
         isDashing = true;
-        playerInfo.Set_Property(PlayerProperty.move_speed, playerInfo.Get_FloatProperty(PlayerProperty.dash_amount));
+        playerStats.Change_StatusPlayer(CharacterProperty.move_speed, '+', playerStats.Get_FloatStatusPlayer(CharacterProperty.dash_amount));
         dashTrailRenderer.emitting = true;
         StartCoroutine(EndDashRoutine());
     }
 
-    ///
-    /// create EndDash Routine Method
-    ///
+    /// <summary>
+    /// EndDashRoutine Method
+    /// </summary>
+    /// <returns>IEnumerator</returns>
     private IEnumerator EndDashRoutine()
     {
-        // feature code
+        // Player is Dashing
         yield return new WaitForSeconds(dashTime);
-        playerInfo.Set_Property(PlayerProperty.move_speed, playerInfo.Get_FloatProperty(PlayerProperty.defaut_move_speed));
+        playerStats.Change_StatusPlayer(CharacterProperty.move_speed, '=', playerStats.Get_FloatStatusPlayer(CharacterProperty.defaut_move_speed));
         dashTrailRenderer.emitting = false;
-        yield return new WaitForSeconds(playerInfo.Get_FloatProperty(PlayerProperty.dash_cd));
+
+        // Player Geting Dash CD
+        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(CharacterProperty.dash_cd));
         isDashing = false;
-    }
-
-    // add data
-    private void CreatePlayer(CharacterStar player)
-    {
-        player.Add_Property(new StringProperty(PlayerProperty.name, "Yuit"));
-        player.Add_Property(new IntProperty(PlayerProperty.level, 1));
-
-        player.Add_Property(new IntProperty(PlayerProperty.health_point, 100));
-        player.Add_Property(new IntProperty(PlayerProperty.max_health_point, 100));
-
-        player.Add_Property(new IntProperty(PlayerProperty.mana_point, 20));
-        player.Add_Property(new IntProperty(PlayerProperty.max_mana_point, 20));
-
-        player.Add_Property(new FloatProperty(PlayerProperty.defaut_move_speed, 5f));
-        player.Add_Property(new FloatProperty(PlayerProperty.move_speed, 5f));
-
-        player.Add_Property(new FloatProperty(PlayerProperty.dash_amount, 20f));
-        player.Add_Property(new FloatProperty(PlayerProperty.dash_cd, 1f));
-
-        player.Add_Property(new IntProperty(PlayerProperty.attack_amount, 1));
-        player.Add_Property(new FloatProperty(PlayerProperty.attack_speed, .5f));
-
-        player.Add_Property(new IntProperty(PlayerProperty.defense_amount, 3));
-
-        player.Add_Property(new IntProperty(PlayerProperty.anti_effect, 30));
     }
 }
