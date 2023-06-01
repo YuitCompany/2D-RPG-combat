@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1539357332}
   - component: {fileID: 1539357334}
   - component: {fileID: 1539357333}
-  - component: {fileID: 1539357335}
   m_Layer: 5
   m_Name: TextLevel
   m_TagString: Untagged
@@ -81,19 +80,86 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Lv 0
---- !u!114 &1539357335
+--- !u!1 &261488115216931410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6940653062308959157}
+  - component: {fileID: 7238359035137632423}
+  - component: {fileID: 6306191852670682090}
+  m_Layer: 5
+  m_Name: TextName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6940653062308959157
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261488115216931410}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8593777629953846620}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_SizeDelta: {x: 180, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7238359035137632423
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261488115216931410}
+  m_CullTransparentMesh: 1
+--- !u!114 &6306191852670682090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1539357331}
+  m_GameObject: {fileID: 261488115216931410}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89bc2531ade7614ba3c7c116fbc5670, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 211
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Name
 --- !u!1 &632298556048026883
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +248,8 @@ GameObject:
   - component: {fileID: 7730876466419433682}
   - component: {fileID: 4733279854099340183}
   - component: {fileID: 2399719951178128767}
+  - component: {fileID: 790614184573216093}
+  - component: {fileID: 979605207011025815}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -203,6 +271,8 @@ RectTransform:
   m_Children:
   - {fileID: 8297136718908357340}
   - {fileID: 1539357332}
+  - {fileID: 6940653062308959157}
+  - {fileID: 6923384624815565953}
   m_Father: {fileID: 327288743240132511}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -272,6 +342,35 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &790614184573216093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278811947154808008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89bc2531ade7614ba3c7c116fbc5670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slimeStats: {fileID: 7698046505421463225}
+  textLevel: {fileID: 1539357333}
+  textName: {fileID: 6306191852670682090}
+--- !u!114 &979605207011025815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278811947154808008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb61481f3bcea6040807733ea9670708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthChangePrefabs: {fileID: 9218188767969659511, guid: f78d0b03d2cade448a4f57128fb11c40, type: 3}
+  textStartPos: {fileID: 6923384624815565953}
 --- !u!1 &1611387445329206894
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 115183979533509115}
   - component: {fileID: 7432382360087557009}
-  - component: {fileID: 8870717907303165016}
+  - component: {fileID: 8971862842283992523}
   m_Layer: 0
   m_Name: SlimeAttackCollider
   m_TagString: Untagged
@@ -321,7 +420,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
---- !u!114 &8870717907303165016
+--- !u!114 &8971862842283992523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,10 +429,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611387445329206894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fbff44511a5cb447b6495f22b667d92, type: 3}
+  m_Script: {fileID: 11500000, guid: ce83d22dae9b26e4baa1580a4d4d99f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeStats: {fileID: 7698046505421463225}
+  slimeStats: {fileID: 0}
+--- !u!1 &2036631142270899740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6923384624815565953}
+  - component: {fileID: 8449563527583180544}
+  m_Layer: 5
+  m_Name: HealthChangePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6923384624815565953
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036631142270899740}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8593777629953846620}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.8}
+  m_SizeDelta: {x: 120, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8449563527583180544
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036631142270899740}
+  m_CullTransparentMesh: 1
 --- !u!1 &7066466638428842311
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +497,7 @@ GameObject:
   - component: {fileID: 267695952}
   - component: {fileID: 1618765298}
   - component: {fileID: 4402202042133343170}
+  - component: {fileID: 8155432357443613736}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -515,6 +660,7 @@ MonoBehaviour:
   knockBackThrust: 15
   DeathVFXPrefas: {fileID: 2394373674368704264, guid: 100fa66efc299f648a1d89b25040b1f3, type: 3}
   slimeStats: {fileID: 7698046505421463225}
+  healthChange: {fileID: 0}
 --- !u!114 &267695951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +714,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteFlashMat: {fileID: 2100000, guid: 93f2391c7373587438a155a071883583, type: 2}
   restoreDefaultMatTime: 0.2
+--- !u!114 &8155432357443613736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066466638428842311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ad573e7897e9a46ba1cd5fcccf3037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHealth: {fileID: 0}
 --- !u!1 &7824419020429394818
 GameObject:
   m_ObjectHideFlags: 0

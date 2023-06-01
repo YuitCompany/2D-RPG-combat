@@ -1,3 +1,4 @@
+using BaseCharacter;
 using BaseMonster;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float knockBackThrust = 15f;
     [SerializeField] private GameObject DeathVFXPrefas;
     [SerializeField] private SlimeStats slimeStats;
+    [SerializeField] private HealthChange healthChange;
 
     private KnockBack knockBack;
     private Flash flash;
@@ -17,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
         knockBack = GetComponent<KnockBack>();
         flash = GetComponent<Flash>();
         slimeStats = GetComponentInParent<SlimeStats>();
+        healthChange = GetComponentInChildren<HealthChange>();
     }
 
     /// <summary>
@@ -42,12 +45,15 @@ public class EnemyHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Enemy Public Method
+    /// TakeDamage Method
+    /// 
     /// </summary>
+    /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
         slimeStats.Change_StatusSlime(MonsterProperty.health_point, '-', damage);
         knockBack.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
+        healthChange.ShowTakeDamageUI(damage);
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
     }

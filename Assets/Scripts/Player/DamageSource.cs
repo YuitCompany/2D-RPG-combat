@@ -4,16 +4,21 @@ using BaseCharacter;
 public class DamageSource : MonoBehaviour
 {
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private int weaponDamageBonus;
 
     private void Awake()
     {
         playerStats = GetComponentInParent<PlayerStats>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /// <summary>
+    /// PlayerDamageSourceWithSword Method
+    /// return Player.attack_amount
+    /// When Get OnTrigger Method
+    /// </summary>
+    /// <returns>Int</returns>
+    public int PlayerDamageSourceWithSwordAmount()
     {
-        EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
-        // ? = if(enemyHealth)
-        enemyHealth?.TakeDamage(playerStats.Get_IntStatusPlayer(CharacterProperty.attack_amount));
+        return playerStats.Get_IntStatusPlayer(CharacterProperty.attack_amount) + weaponDamageBonus;
     }
 }
