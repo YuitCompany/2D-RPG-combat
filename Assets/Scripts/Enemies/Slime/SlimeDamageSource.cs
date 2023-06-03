@@ -23,24 +23,4 @@ public class SlimeDamageSource : MonoBehaviour
     {
         return slimeStats.Get_IntStatusSlime(MonsterProperty.attack_amount);
     }
-
-    /// <summary>
-    /// DoneAttacked Method
-    /// Monter Attack Is Not Done
-    /// Unenable Collider
-    /// </summary>
-    public void DoneAttacked()
-    {
-        this.gameObject.GetComponent<CircleCollider2D>().enabled = false;
-    }
-
-    /// <summary>
-    /// DoneAttacked Method
-    /// Monter Attack Is Done
-    /// Enable Collider
-    /// </summary>
-    public void HaveAttacked()
-    {
-        this.gameObject.GetComponent<CircleCollider2D>().enabled = true;
-    }
 }

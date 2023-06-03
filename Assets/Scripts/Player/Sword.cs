@@ -14,9 +14,9 @@ public class Sword : MonoBehaviour
     [SerializeField] private Transform slashAnimSpamPoint;
 
     private PlayerControls playerControls;
-    private Animator swordAnim;
     private PlayerController playerController;
     private ActiveWeapon activeWeapon;
+    private Animator swordAnim;
     private GameObject slashAnim;
 
     private bool isAttacking;

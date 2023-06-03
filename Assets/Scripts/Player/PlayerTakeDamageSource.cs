@@ -1,7 +1,5 @@
 using BaseCharacter;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerTakeDamageSource : MonoBehaviour
@@ -22,16 +20,15 @@ public class PlayerTakeDamageSource : MonoBehaviour
     /// Check If The Slime Is Attacked By The Player
     /// </summary>
     /// <param name="collision">Collider Of Player</param>
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         SlimeDamageSource damageSource = collision.gameObject.GetComponent<SlimeDamageSource>();
 
-        if (damageSource && !isAttacked)
+        if (damageSource != null && damageSource && !isAttacked)
         {
             isAttacked = true;
-            collision.gameObject.GetComponent<SlimeDamageSource>().DoneAttacked();
             PlayerTakeDamage(collision.gameObject.GetComponent<SlimeDamageSource>().SlimeDamageSourceAmount());
-            StartCoroutine(WaitForGetDamageRoutine(damageSource, .5f));
+            StartCoroutine(WaitForGetDamageRoutine(.7f));
         }
     }
 
@@ -45,12 +42,11 @@ public class PlayerTakeDamageSource : MonoBehaviour
     /// create WaitForGetDamageRoutine Method
     /// 
     ///
-    private IEnumerator WaitForGetDamageRoutine(SlimeDamageSource collision, float time)
+    private IEnumerator WaitForGetDamageRoutine(float time)
     {
         // Before Delay Time Code
         yield return new WaitForSeconds(time);
-        isAttacked = false;
-        collision.gameObject.GetComponent<SlimeDamageSource>().HaveAttacked();
         // After Delay Time Code
+        isAttacked = false;
     }
 }
