@@ -1,15 +1,15 @@
 using UnityEngine;
 
 using BaseObject;
-using BaseCharacter;
+using StatsObject;
 
 public class PlayerStats : MonoBehaviour
 {
-    private CharacterStats playerStats;
+    private ObjectState playerStats;
 
     private void Awake()
     {
-        playerStats = new CharacterStats();
+        playerStats = new ObjectState();
         SetStatusPlayer();
     }
 

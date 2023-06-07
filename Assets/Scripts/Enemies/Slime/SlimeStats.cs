@@ -1,15 +1,15 @@
 using UnityEngine;
 
 using BaseObject;
-using BaseMonster;
+using StatsObject;
 
 public class SlimeStats : MonoBehaviour
 {
-    private MonsterStats slimeStats;
+    private ObjectState slimeStats;
 
     private void Awake()
     {
-        slimeStats = new MonsterStats();
+        slimeStats = new ObjectState();
         SetStatusSlime();
     }
 

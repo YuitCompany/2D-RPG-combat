@@ -13,7 +13,7 @@ namespace BaseObject
 
 
     /// <summary>
-    /// Enum Type Include The Character Stats
+    /// Enum Type Include The Object Stats
     /// </summary>
     public enum ObjectProperty
     {

@@ -1,9 +1,9 @@
+using BaseObject;
 using System.Collections.Generic;
 
-using BaseObject;
-
-namespace BaseCharacter
+namespace StatsObject
 {
+
     /// <summary>
     /// IntProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, int>
     /// </summary>
@@ -90,7 +90,7 @@ namespace BaseCharacter
         public StringProperty(ObjectProperty type, string value)
         {
             this.type = type;
-            this.value= value;
+            this.value = value;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace BaseCharacter
         /// Get/Set Value Property
         /// </summary>
         /// <returns>String Type</returns>
-        public string Value { get { return value; } set { this.value= value; } }
+        public string Value { get { return value; } set { this.value = value; } }
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ namespace BaseCharacter
     /// Value.Key = Key
     /// Value.Value: Data Stored
     /// </summary>
-    public class CharacterStats
+    public class ObjectState
     {
         // Dictionary Save Data Stored In Type
         private Dictionary<ObjectProperty, IntProperty> Dic_IntProperty = new Dictionary<ObjectProperty, IntProperty>();
@@ -141,7 +141,7 @@ namespace BaseCharacter
         public void Add_Property(FloatProperty floatProperty)
         {
             ObjectProperty type = floatProperty.GetType();
-            
+
             if (!Dic_FloatProperty.ContainsKey(type))
             {
                 Dic_FloatProperty.Add(type, floatProperty);
@@ -259,4 +259,3 @@ namespace BaseCharacter
         }
     }
 }
-
