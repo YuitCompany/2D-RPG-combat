@@ -1,8 +1,6 @@
-using BaseCharacter;
-using BaseMonster;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+using BaseObject;
 
 public class SlimeDamageSource : MonoBehaviour
 {
@@ -21,6 +19,6 @@ public class SlimeDamageSource : MonoBehaviour
     /// <returns>Int</returns>
     public int SlimeDamageSourceAmount()
     {
-        return slimeStats.Get_IntStatusSlime(MonsterProperty.attack_amount);
+        return slimeStats.Get_IntStatusSlime(ObjectProperty.attack_amount);
     }
 }

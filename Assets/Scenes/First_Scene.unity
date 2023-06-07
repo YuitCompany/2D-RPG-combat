@@ -15541,8 +15541,8 @@ MonoBehaviour:
   arrowAnimPrefabs: {fileID: 8959061768063441179, guid: 8dbee265d0695854abbde74f23d173d2, type: 3}
   arrowSpamPoint: {fileID: 999087255}
   arrowList: {fileID: 132742691}
-  bowPower: 500
   bowDamage: 2
+  bowPower: 500
 --- !u!1 &736666468
 GameObject:
   m_ObjectHideFlags: 0

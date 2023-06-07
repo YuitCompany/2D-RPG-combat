@@ -1,8 +1,5 @@
-using BaseMonster;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Tilemaps;
 using UnityEngine;
+using BaseObject;
 
 public class EnemyPathFinding : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class EnemyPathFinding : MonoBehaviour
     {
         if (knockBack.IsKnockedBack) { return; }
         slime_rb.MovePosition(slime_rb.position + moveDir * 
-            (slimeStats.Get_FloatStatusSlime(MonsterProperty.move_speed) * Time.fixedDeltaTime));
+            (slimeStats.Get_FloatStatusSlime(ObjectProperty.move_speed) * Time.fixedDeltaTime));
     }
 
     /// <summary>

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using BaseObject;
 using BaseMonster;
 
 public class SlimeStats : MonoBehaviour
@@ -18,21 +19,21 @@ public class SlimeStats : MonoBehaviour
     /// </summary>
     private void SetStatusSlime()
     {
-        slimeStats.Add_Property(new StringProperty(MonsterProperty.name, "Slime"));
-        slimeStats.Add_Property(new IntProperty(MonsterProperty.level, 1));
+        slimeStats.Add_Property(new StringProperty(ObjectProperty.name, "Slime"));
+        slimeStats.Add_Property(new IntProperty(ObjectProperty.level, 1));
 
-        slimeStats.Add_Property(new IntProperty(MonsterProperty.health_point, 50));
-        slimeStats.Add_Property(new IntProperty(MonsterProperty.max_health_point, 50));
+        slimeStats.Add_Property(new IntProperty(ObjectProperty.health_point, 50));
+        slimeStats.Add_Property(new IntProperty(ObjectProperty.max_health_point, 50));
 
-        slimeStats.Add_Property(new FloatProperty(MonsterProperty.defaut_move_speed, 5f));
-        slimeStats.Add_Property(new FloatProperty(MonsterProperty.move_speed, 3f));
+        slimeStats.Add_Property(new FloatProperty(ObjectProperty.defaut_move_speed, 5f));
+        slimeStats.Add_Property(new FloatProperty(ObjectProperty.move_speed, 3f));
 
-        slimeStats.Add_Property(new IntProperty(MonsterProperty.attack_amount, 3));
-        slimeStats.Add_Property(new FloatProperty(MonsterProperty.attack_speed, 1f));
+        slimeStats.Add_Property(new IntProperty(ObjectProperty.attack_amount, 3));
+        slimeStats.Add_Property(new FloatProperty(ObjectProperty.attack_speed, 1f));
 
-        slimeStats.Add_Property(new FloatProperty(MonsterProperty.defense_amount, 1f));
+        slimeStats.Add_Property(new FloatProperty(ObjectProperty.defense_amount, 1f));
 
-        slimeStats.Add_Property(new IntProperty(MonsterProperty.anti_effect, 20));
+        slimeStats.Add_Property(new IntProperty(ObjectProperty.anti_effect, 20));
     }
 
     /// <summary>
@@ -41,7 +42,7 @@ public class SlimeStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public int Get_IntStatusSlime(MonsterProperty type)
+    public int Get_IntStatusSlime(ObjectProperty type)
     {
         return slimeStats.Get_IntProperty(type);
     }
@@ -52,7 +53,7 @@ public class SlimeStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public float Get_FloatStatusSlime(MonsterProperty type)
+    public float Get_FloatStatusSlime(ObjectProperty type)
     {
         return slimeStats.Get_FloatProperty(type);
     }
@@ -63,7 +64,7 @@ public class SlimeStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public string Get_StringStatusSlime(MonsterProperty type)
+    public string Get_StringStatusSlime(ObjectProperty type)
     {
         return slimeStats.Get_StringProperty(type);
     }
@@ -76,10 +77,11 @@ public class SlimeStats : MonoBehaviour
     /// <param name="type">Property Name</param>
     /// <param name="operatorType">Operator</param>
     /// <param name="value">Value Will Be Written</param>
-    public void Change_StatusSlime(MonsterProperty type, char operatorType, int value)
+    public void Change_StatusSlime(ObjectProperty type, char operatorType, int value)
     {
         slimeStats.Change_Property(type, operatorType, (int)value);
-    }public void Change_StatusSlime(MonsterProperty type, char operatorType, float value)
+    }
+    public void Change_StatusSlime(ObjectProperty type, char operatorType, float value)
     {
         slimeStats.Change_Property(type, operatorType, (float)value);
     }

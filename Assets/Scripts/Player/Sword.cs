@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
+﻿using System.Collections;
 using UnityEngine;
 
-using BaseCharacter;
+using BaseObject;
 
 
 public class Sword : MonoBehaviour
@@ -107,7 +104,7 @@ public class Sword : MonoBehaviour
     private IEnumerator EndAttackRoutine()
     {
         // Attack 
-        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(CharacterProperty.attack_speed));
+        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(ObjectProperty.attack_speed));
         isAttacking = false;
     }
 

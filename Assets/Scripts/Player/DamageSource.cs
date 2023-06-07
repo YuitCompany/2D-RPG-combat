@@ -1,5 +1,5 @@
 using UnityEngine;
-using BaseCharacter;
+using BaseObject;
 
 public class DamageSource : MonoBehaviour
 {
@@ -19,6 +19,6 @@ public class DamageSource : MonoBehaviour
     /// <returns>Int</returns>
     public int PlayerDamageSourceWithSwordAmount()
     {
-        return playerStats.Get_IntStatusPlayer(CharacterProperty.attack_amount) + weaponDamageBonus;
+        return playerStats.Get_IntStatusPlayer(ObjectProperty.attack_amount) + weaponDamageBonus;
     }
 }

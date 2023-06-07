@@ -1,8 +1,7 @@
-using BaseCharacter;
-using BaseMonster;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+using BaseObject;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -27,7 +26,7 @@ public class EnemyHealth : MonoBehaviour
     /// </summary>
     private void DetectDeath()
     {
-        if (slimeStats.Get_IntStatusSlime(MonsterProperty.health_point) <= 0) 
+        if (slimeStats.Get_IntStatusSlime(ObjectProperty.health_point) <= 0) 
         {
             Instantiate(DeathVFXPrefas, this.transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -51,7 +50,7 @@ public class EnemyHealth : MonoBehaviour
     /// <param name="damage"></param>
     public void TakeDamage(int damage)
     {
-        slimeStats.Change_StatusSlime(MonsterProperty.health_point, '-', damage);
+        slimeStats.Change_StatusSlime(ObjectProperty.health_point, '-', damage);
         knockBack.GetKnockedBack(PlayerController.Instance.transform, knockBackThrust);
         healthChange.ShowTakeDamageUI(damage);
         StartCoroutine(flash.FlashRoutine());

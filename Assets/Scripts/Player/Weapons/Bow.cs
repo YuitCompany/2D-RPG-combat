@@ -1,6 +1,4 @@
-using BaseCharacter;
-using System.Collections;
-using System.Collections.Generic;
+using BaseObject;
 using UnityEngine;
 
 public class Bow : MonoBehaviour
@@ -9,7 +7,6 @@ public class Bow : MonoBehaviour
     [SerializeField] private GameObject arrowAnimPrefabs;
     [SerializeField] private Transform  arrowSpamPoint;
     [SerializeField] private Transform arrowList;
-    [SerializeField] private float bowPower = 500f;
     [SerializeField] private int bowDamage = 2;
 
     private PlayerControls playerControls;
@@ -19,6 +16,10 @@ public class Bow : MonoBehaviour
     private GameObject arrowAnim;
 
     bool isBowPull;
+    // Code For Hold And Upper Damge (Inactive)
+    //[SerializeField] private float speedPower = .5f;
+    //[SerializeField] private float maxBowPower = 500f;
+    [SerializeField] private float bowPower = 500f;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Bow : MonoBehaviour
     private void Update()
     {
         MouseFollowWithOffset();
+       // if(playerControls.Combat.Attack.started) += _ => StartCoroutine(HoldAttackHigherRoutine(speedPower));
     }
 
     /// <summary>
@@ -78,6 +80,7 @@ public class Bow : MonoBehaviour
     private void StopHoldAttacking()
     {
         if (!isBowPull) { return; }
+        //if (!(bowPower > 200f)) return;
 
         isBowPull = false;
         bowAnim.SetTrigger("EndHolding");
@@ -85,8 +88,9 @@ public class Bow : MonoBehaviour
         arrowAnim = Instantiate(arrowAnimPrefabs, arrowSpamPoint.position, arrowSpamPoint.rotation);
         arrowAnim.GetComponent<Rigidbody2D>().AddForce(arrowSpamPoint.transform.right * bowPower);
         arrowAnim.GetComponent<Arrow>().angle = GetAngleMousePos();
-        arrowAnim.GetComponent<Arrow>().arrowDamage = bowDamage + playerStats.Get_IntStatusPlayer(CharacterProperty.attack_amount);
+        arrowAnim.GetComponent<Arrow>().arrowDamage = bowDamage + playerStats.Get_IntStatusPlayer(ObjectProperty.attack_amount);
         arrowAnim.transform.SetParent(arrowList.transform);
+        //bowPower = 0f;
     }
 
     private float GetAngleMousePos()

@@ -1,32 +1,15 @@
 using System.Collections.Generic;
+
 using BaseObject;
 
 namespace BaseMonster
 {
     /// <summary>
-    /// Enum Type Include The Monster Stats
+    /// IntProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, int>
     /// </summary>
-    public enum MonsterProperty
+    public class IntProperty : BaseProperty<ObjectProperty, int>
     {
-        name,
-        level,
-        health_point,
-        max_health_point,
-        mana_point,
-        max_mana_point,
-        defaut_move_speed,
-        move_speed,
-        attack_amount,
-        attack_speed,
-        defense_amount,
-        anti_effect
-    }
-    /// <summary>
-    /// IntProperty Class Inheritance Of BaseProperty With Value <MonsterProperty, int>
-    /// </summary>
-    public class IntProperty : BaseProperty<MonsterProperty, int>
-    {
-        protected MonsterProperty type;
+        protected ObjectProperty type;
         protected int value;
 
         /// <summary>
@@ -34,7 +17,7 @@ namespace BaseMonster
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Int Value</param>
-        public IntProperty(MonsterProperty type, int value)
+        public IntProperty(ObjectProperty type, int value)
         {
             this.type = type;
             this.value = value;
@@ -44,7 +27,7 @@ namespace BaseMonster
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new MonsterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -57,11 +40,11 @@ namespace BaseMonster
     }
 
     /// <summary>
-    /// FloatProperty Class Inheritance Of BaseProperty With Value <MonsterProperty, float>
+    /// FloatProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, float>
     /// </summary>
-    public class FloatProperty : BaseProperty<MonsterProperty, float>
+    public class FloatProperty : BaseProperty<ObjectProperty, float>
     {
-        protected MonsterProperty type;
+        protected ObjectProperty type;
         protected float value;
 
         /// <summary>
@@ -69,7 +52,7 @@ namespace BaseMonster
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Float Value</param>
-        public FloatProperty(MonsterProperty type, float value)
+        public FloatProperty(ObjectProperty type, float value)
         {
             this.type = type;
             this.value = value;
@@ -79,7 +62,7 @@ namespace BaseMonster
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new MonsterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -92,11 +75,11 @@ namespace BaseMonster
     }
 
     /// <summary>
-    /// StringProperty Class Inheritance Of BaseProperty With Value <MonsterProperty, string>
+    /// StringProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, string>
     /// </summary>
-    public class StringProperty : BaseProperty<MonsterProperty, string>
+    public class StringProperty : BaseProperty<ObjectProperty, string>
     {
-        protected MonsterProperty type;
+        protected ObjectProperty type;
         protected string value;
 
         /// <summary>
@@ -104,7 +87,7 @@ namespace BaseMonster
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">String Value</param>
-        public StringProperty(MonsterProperty type, string value)
+        public StringProperty(ObjectProperty type, string value)
         {
             this.type = type;
             this.value = value;
@@ -114,7 +97,7 @@ namespace BaseMonster
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new MonsterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -136,9 +119,9 @@ namespace BaseMonster
     public class MonsterStats
     {
         // Dictionary Save Data Stored In Type
-        private Dictionary<MonsterProperty, IntProperty> Dic_IntProperty = new Dictionary<MonsterProperty, IntProperty>();
-        private Dictionary<MonsterProperty, FloatProperty> Dic_FloatProperty = new Dictionary<MonsterProperty, FloatProperty>();
-        private Dictionary<MonsterProperty, StringProperty> Dic_StringProperty = new Dictionary<MonsterProperty, StringProperty>();
+        private Dictionary<ObjectProperty, IntProperty> Dic_IntProperty = new Dictionary<ObjectProperty, IntProperty>();
+        private Dictionary<ObjectProperty, FloatProperty> Dic_FloatProperty = new Dictionary<ObjectProperty, FloatProperty>();
+        private Dictionary<ObjectProperty, StringProperty> Dic_StringProperty = new Dictionary<ObjectProperty, StringProperty>();
 
 
         /// <summary>
@@ -148,7 +131,7 @@ namespace BaseMonster
         /// <param name="Property">Data.Value Will Be Written If Data.Key Not Duplicate</param>
         public void Add_Property(IntProperty intProperty)
         {
-            MonsterProperty type = intProperty.GetType();
+            ObjectProperty type = intProperty.GetType();
 
             if (!Dic_IntProperty.ContainsKey(type))
             {
@@ -157,7 +140,7 @@ namespace BaseMonster
         }
         public void Add_Property(FloatProperty floatProperty)
         {
-            MonsterProperty type = floatProperty.GetType();
+            ObjectProperty type = floatProperty.GetType();
 
             if (!Dic_FloatProperty.ContainsKey(type))
             {
@@ -166,7 +149,7 @@ namespace BaseMonster
         }
         public void Add_Property(StringProperty stringProperty)
         {
-            MonsterProperty type = stringProperty.GetType();
+            ObjectProperty type = stringProperty.GetType();
 
             if (!Dic_StringProperty.ContainsKey(type))
             {
@@ -180,7 +163,7 @@ namespace BaseMonster
         /// <param name="type">Key For Search Data</param>
         /// <returns>Int value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public int Get_IntProperty(MonsterProperty type)
+        public int Get_IntProperty(ObjectProperty type)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return 0;
 
@@ -192,7 +175,7 @@ namespace BaseMonster
         /// <param name="type">Key For Search Data</param>
         /// <returns>Float value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public float Get_FloatProperty(MonsterProperty type)
+        public float Get_FloatProperty(ObjectProperty type)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return 0f;
 
@@ -204,7 +187,7 @@ namespace BaseMonster
         /// <param name="type">Key For Search Data</param>
         /// <returns>String value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public string Get_StringProperty(MonsterProperty type)
+        public string Get_StringProperty(ObjectProperty type)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return "";
 
@@ -217,19 +200,19 @@ namespace BaseMonster
         /// </summary>
         /// <param name="type">Key For Search Value</param>
         /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Set_Property(MonsterProperty type, int value)
+        public void Set_Property(ObjectProperty type, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
             Dic_IntProperty[type].Value = value;
         }
-        public void Set_Property(MonsterProperty type, float value)
+        public void Set_Property(ObjectProperty type, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
             Dic_FloatProperty[type].Value = value;
         }
-        public void Set_Property(MonsterProperty type, string value)
+        public void Set_Property(ObjectProperty type, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 
@@ -245,7 +228,7 @@ namespace BaseMonster
         /// <param name="operatorType">Operator Calculus Classification</param>
         /// <param name="type">Key For Search Value</param>
         /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Change_Property(MonsterProperty type, char operatorType, int value)
+        public void Change_Property(ObjectProperty type, char operatorType, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
@@ -256,7 +239,7 @@ namespace BaseMonster
             if (operatorType == '/') Dic_IntProperty[type].Value /= value;
             if (operatorType == '%') Dic_IntProperty[type].Value %= value;
         }
-        public void Change_Property(MonsterProperty type, char operatorType, float value)
+        public void Change_Property(ObjectProperty type, char operatorType, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
@@ -267,7 +250,7 @@ namespace BaseMonster
             if (operatorType == '/') Dic_FloatProperty[type].Value /= value;
             if (operatorType == '%') Dic_FloatProperty[type].Value %= value;
         }
-        public void Change_Property(MonsterProperty type, char operatorType, string value)
+        public void Change_Property(ObjectProperty type, char operatorType, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace BaseObject
 {
     /// <summary>
@@ -13,5 +9,27 @@ namespace BaseObject
     {
         V GetType();
         T Value { get; set; }
+    }
+
+
+    /// <summary>
+    /// Enum Type Include The Character Stats
+    /// </summary>
+    public enum ObjectProperty
+    {
+        name,
+        level,
+        health_point,
+        max_health_point,
+        mana_point,
+        max_mana_point,
+        defaut_move_speed,
+        move_speed,
+        dash_amount,
+        dash_cd,
+        attack_amount,
+        attack_speed,
+        defense_amount,
+        anti_effect
     }
 }

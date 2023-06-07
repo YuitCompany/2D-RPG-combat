@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using BaseCharacter;
+using BaseObject;
 
 public class HealthBar : Singleton <HealthBar>
 {
@@ -28,7 +28,7 @@ public class HealthBar : Singleton <HealthBar>
     /// </summary>
     private void SetMaxHealthBar()
     {
-        sliderHealth.maxValue = playerStats.Get_IntStatusPlayer(CharacterProperty.max_health_point);
+        sliderHealth.maxValue = playerStats.Get_IntStatusPlayer(ObjectProperty.max_health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(1f);
     }
 
@@ -39,7 +39,7 @@ public class HealthBar : Singleton <HealthBar>
     /// </summary>
     public void SetPresentHealthBar()
     {
-        sliderHealth.value = playerStats.Get_IntStatusPlayer(CharacterProperty.health_point);
+        sliderHealth.value = playerStats.Get_IntStatusPlayer(ObjectProperty.health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(sliderHealth.normalizedValue);
     }
 }

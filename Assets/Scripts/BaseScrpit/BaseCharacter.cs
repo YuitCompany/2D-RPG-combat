@@ -5,32 +5,11 @@ using BaseObject;
 namespace BaseCharacter
 {
     /// <summary>
-    /// Enum Type Include The Character Stats
+    /// IntProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, int>
     /// </summary>
-    public enum CharacterProperty
+    public class IntProperty : BaseProperty<ObjectProperty, int>
     {
-        name,
-        level,
-        health_point,
-        max_health_point,
-        mana_point,
-        max_mana_point,
-        defaut_move_speed,
-        move_speed,
-        dash_amount,
-        dash_cd,
-        attack_amount,
-        attack_speed,
-        defense_amount,
-        anti_effect
-    }
-
-    /// <summary>
-    /// IntProperty Class Inheritance Of BaseProperty With Value <CharacterProperty, int>
-    /// </summary>
-    public class IntProperty : BaseProperty<CharacterProperty, int>
-    {
-        protected CharacterProperty type;
+        protected ObjectProperty type;
         protected int value;
 
         /// <summary>
@@ -38,7 +17,7 @@ namespace BaseCharacter
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Int Value</param>
-        public IntProperty(CharacterProperty type, int value)
+        public IntProperty(ObjectProperty type, int value)
         {
             this.type = type;
             this.value = value;
@@ -48,7 +27,7 @@ namespace BaseCharacter
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new CharacterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -61,11 +40,11 @@ namespace BaseCharacter
     }
 
     /// <summary>
-    /// FloatProperty Class Inheritance Of BaseProperty With Value <CharacterProperty, float>
+    /// FloatProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, float>
     /// </summary>
-    public class FloatProperty : BaseProperty<CharacterProperty, float>
+    public class FloatProperty : BaseProperty<ObjectProperty, float>
     {
-        protected CharacterProperty type;
+        protected ObjectProperty type;
         protected float value;
 
         /// <summary>
@@ -73,7 +52,7 @@ namespace BaseCharacter
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Float Value</param>
-        public FloatProperty(CharacterProperty type, float value)
+        public FloatProperty(ObjectProperty type, float value)
         {
             this.type = type;
             this.value = value;
@@ -83,7 +62,7 @@ namespace BaseCharacter
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new CharacterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -96,11 +75,11 @@ namespace BaseCharacter
     }
 
     /// <summary>
-    /// StringProperty Class Inheritance Of BaseProperty With Value <CharacterProperty, string>
+    /// StringProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, string>
     /// </summary>
-    public class StringProperty : BaseProperty<CharacterProperty, string>
+    public class StringProperty : BaseProperty<ObjectProperty, string>
     {
-        protected CharacterProperty type;
+        protected ObjectProperty type;
         protected string value;
 
         /// <summary>
@@ -108,7 +87,7 @@ namespace BaseCharacter
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">String Value</param>
-        public StringProperty(CharacterProperty type, string value)
+        public StringProperty(ObjectProperty type, string value)
         {
             this.type = type;
             this.value= value;
@@ -118,7 +97,7 @@ namespace BaseCharacter
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new CharacterProperty GetType()
+        public new ObjectProperty GetType()
         {
             return type;
         }
@@ -140,9 +119,9 @@ namespace BaseCharacter
     public class CharacterStats
     {
         // Dictionary Save Data Stored In Type
-        private Dictionary<CharacterProperty, IntProperty> Dic_IntProperty = new Dictionary<CharacterProperty, IntProperty>();
-        private Dictionary<CharacterProperty, FloatProperty> Dic_FloatProperty = new Dictionary<CharacterProperty, FloatProperty>();
-        private Dictionary<CharacterProperty, StringProperty> Dic_StringProperty = new Dictionary<CharacterProperty, StringProperty>();
+        private Dictionary<ObjectProperty, IntProperty> Dic_IntProperty = new Dictionary<ObjectProperty, IntProperty>();
+        private Dictionary<ObjectProperty, FloatProperty> Dic_FloatProperty = new Dictionary<ObjectProperty, FloatProperty>();
+        private Dictionary<ObjectProperty, StringProperty> Dic_StringProperty = new Dictionary<ObjectProperty, StringProperty>();
 
 
         /// <summary>
@@ -152,7 +131,7 @@ namespace BaseCharacter
         /// <param name="Property">Data.Value Will Be Written If Data.Key Not Duplicate</param>
         public void Add_Property(IntProperty intProperty)
         {
-            CharacterProperty type = intProperty.GetType();
+            ObjectProperty type = intProperty.GetType();
 
             if (!Dic_IntProperty.ContainsKey(type))
             {
@@ -161,7 +140,7 @@ namespace BaseCharacter
         }
         public void Add_Property(FloatProperty floatProperty)
         {
-            CharacterProperty type = floatProperty.GetType();
+            ObjectProperty type = floatProperty.GetType();
             
             if (!Dic_FloatProperty.ContainsKey(type))
             {
@@ -170,7 +149,7 @@ namespace BaseCharacter
         }
         public void Add_Property(StringProperty stringProperty)
         {
-            CharacterProperty type = stringProperty.GetType();
+            ObjectProperty type = stringProperty.GetType();
 
             if (!Dic_StringProperty.ContainsKey(type))
             {
@@ -184,7 +163,7 @@ namespace BaseCharacter
         /// <param name="type">Key For Search Data</param>
         /// <returns>Int value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public int Get_IntProperty(CharacterProperty type)
+        public int Get_IntProperty(ObjectProperty type)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return 0;
 
@@ -196,7 +175,7 @@ namespace BaseCharacter
         /// <param name="type">Key For Search Data</param>
         /// <returns>Float value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public float Get_FloatProperty(CharacterProperty type)
+        public float Get_FloatProperty(ObjectProperty type)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return 0f;
 
@@ -208,7 +187,7 @@ namespace BaseCharacter
         /// <param name="type">Key For Search Data</param>
         /// <returns>String value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public string Get_StringProperty(CharacterProperty type)
+        public string Get_StringProperty(ObjectProperty type)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return "";
 
@@ -221,19 +200,19 @@ namespace BaseCharacter
         /// </summary>
         /// <param name="type">Key For Search Value</param>
         /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Set_Property(CharacterProperty type, int value)
+        public void Set_Property(ObjectProperty type, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
             Dic_IntProperty[type].Value = value;
         }
-        public void Set_Property(CharacterProperty type, float value)
+        public void Set_Property(ObjectProperty type, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
             Dic_FloatProperty[type].Value = value;
         }
-        public void Set_Property(CharacterProperty type, string value)
+        public void Set_Property(ObjectProperty type, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 
@@ -249,7 +228,7 @@ namespace BaseCharacter
         /// <param name="operatorType">Operator Calculus Classification</param>
         /// <param name="type">Key For Search Value</param>
         /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Change_Property(CharacterProperty type, char operatorType, int value)
+        public void Change_Property(ObjectProperty type, char operatorType, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
@@ -260,7 +239,7 @@ namespace BaseCharacter
             if (operatorType == '/') Dic_IntProperty[type].Value /= value;
             if (operatorType == '%') Dic_IntProperty[type].Value %= value;
         }
-        public void Change_Property(CharacterProperty type, char operatorType, float value)
+        public void Change_Property(ObjectProperty type, char operatorType, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
@@ -271,7 +250,7 @@ namespace BaseCharacter
             if (operatorType == '/') Dic_FloatProperty[type].Value /= value;
             if (operatorType == '%') Dic_FloatProperty[type].Value %= value;
         }
-        public void Change_Property(CharacterProperty type, char operatorType, string value)
+        public void Change_Property(ObjectProperty type, char operatorType, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 

@@ -1,6 +1,7 @@
-using BaseMonster;
 using UnityEngine;
 using UnityEngine.UI;
+
+using BaseObject;
 
 public class EnemyShowStats : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class EnemyShowStats : MonoBehaviour
 
     private void Start()
     {
-        textLevel.text = "Lv " + slimeStats.Get_IntStatusSlime(MonsterProperty.level).ToString();
-        textName.text = slimeStats.Get_StringStatusSlime(MonsterProperty.name);
+        textLevel.text = "Lv " + slimeStats.Get_IntStatusSlime(ObjectProperty.level).ToString();
+        textName.text = slimeStats.Get_StringStatusSlime(ObjectProperty.name);
     }
 }

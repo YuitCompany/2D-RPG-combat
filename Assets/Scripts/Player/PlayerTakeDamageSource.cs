@@ -1,4 +1,4 @@
-using BaseCharacter;
+using BaseObject;
 using System.Collections;
 using UnityEngine;
 
@@ -34,7 +34,7 @@ public class PlayerTakeDamageSource : MonoBehaviour
 
     private void PlayerTakeDamage(int damage)
     {
-        playerStats.Change_StatusPlayer(CharacterProperty.health_point, '-', damage);
+        playerStats.Change_StatusPlayer(ObjectProperty.health_point, '-', damage);
         healthChange.ShowTakeDamageUI(damage);
     }
 

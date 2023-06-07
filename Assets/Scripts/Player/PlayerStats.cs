@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using BaseObject;
 using BaseCharacter;
 
 public class PlayerStats : MonoBehaviour
@@ -18,27 +19,27 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     private void SetStatusPlayer()
     {
-        playerStats.Add_Property(new StringProperty(CharacterProperty.name, "Yuit"));
-        playerStats.Add_Property(new IntProperty(CharacterProperty.level, 1));
+        playerStats.Add_Property(new StringProperty(ObjectProperty.name, "Yuit"));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.level, 1));
 
-        playerStats.Add_Property(new IntProperty(CharacterProperty.health_point, 100));
-        playerStats.Add_Property(new IntProperty(CharacterProperty.max_health_point, 100));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.health_point, 100));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.max_health_point, 100));
 
-        playerStats.Add_Property(new IntProperty(CharacterProperty.mana_point, 20));
-        playerStats.Add_Property(new IntProperty(CharacterProperty.max_mana_point, 20));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.mana_point, 20));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.max_mana_point, 20));
 
-        playerStats.Add_Property(new FloatProperty(CharacterProperty.defaut_move_speed, 5f));
-        playerStats.Add_Property(new FloatProperty(CharacterProperty.move_speed, 5f));
+        playerStats.Add_Property(new FloatProperty(ObjectProperty.defaut_move_speed, 5f));
+        playerStats.Add_Property(new FloatProperty(ObjectProperty.move_speed, 5f));
 
-        playerStats.Add_Property(new FloatProperty(CharacterProperty.dash_amount, 20f));
-        playerStats.Add_Property(new FloatProperty(CharacterProperty.dash_cd, 1f));
+        playerStats.Add_Property(new FloatProperty(ObjectProperty.dash_amount, 20f));
+        playerStats.Add_Property(new FloatProperty(ObjectProperty.dash_cd, 1f));
 
-        playerStats.Add_Property(new IntProperty(CharacterProperty.attack_amount, 10));
-        playerStats.Add_Property(new FloatProperty(CharacterProperty.attack_speed, .5f));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.attack_amount, 10));
+        playerStats.Add_Property(new FloatProperty(ObjectProperty.attack_speed, .5f));
 
-        playerStats.Add_Property(new IntProperty(CharacterProperty.defense_amount, 3));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.defense_amount, 3));
 
-        playerStats.Add_Property(new IntProperty(CharacterProperty.anti_effect, 30));
+        playerStats.Add_Property(new IntProperty(ObjectProperty.anti_effect, 30));
     }
 
     /// <summary>
@@ -47,7 +48,7 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public int Get_IntStatusPlayer(CharacterProperty type)
+    public int Get_IntStatusPlayer(ObjectProperty type)
     {
         return playerStats.Get_IntProperty(type);
     }
@@ -58,7 +59,7 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public float Get_FloatStatusPlayer(CharacterProperty type)
+    public float Get_FloatStatusPlayer(ObjectProperty type)
     {
         return playerStats.Get_FloatProperty(type);
     }
@@ -69,7 +70,7 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     /// <param name="type">Key Using For Get Value</param>
     /// <returns></returns>
-    public string Get_StringStatusPlayer(CharacterProperty type)
+    public string Get_StringStatusPlayer(ObjectProperty type)
     {
         return playerStats.Get_StringProperty(type);
     }
@@ -82,11 +83,11 @@ public class PlayerStats : MonoBehaviour
     /// <param name="type">Property Name</param>
     /// <param name="operatorType">Operator</param>
     /// <param name="value">Value Will Be Written</param>
-    public void Change_StatusPlayer(CharacterProperty type, char operatorType, int value)
+    public void Change_StatusPlayer(ObjectProperty type, char operatorType, int value)
     {
         playerStats.Change_Property(type, operatorType, (int)value);
     }
-    public void Change_StatusPlayer(CharacterProperty type, char operatorType, float value)
+    public void Change_StatusPlayer(ObjectProperty type, char operatorType, float value)
     {
         playerStats.Change_Property(type, operatorType, (float)value);
     }

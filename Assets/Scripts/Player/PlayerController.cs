@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-using BaseCharacter;
+using BaseObject;
 
 
 public class PlayerController : Singleton<PlayerController>
@@ -80,7 +79,7 @@ public class PlayerController : Singleton<PlayerController>
     private void PlayerMove()
     {
         player_rb.MovePosition(player_rb.position + player_Movement *
-            (playerStats.Get_FloatStatusPlayer(CharacterProperty.move_speed) * Time.fixedDeltaTime));
+            (playerStats.Get_FloatStatusPlayer(ObjectProperty.move_speed) * Time.fixedDeltaTime));
     }
 
     /// <summary>
@@ -117,7 +116,7 @@ public class PlayerController : Singleton<PlayerController>
         if (isDashing) { return; }
 
         isDashing = true;
-        playerStats.Change_StatusPlayer(CharacterProperty.move_speed, '+', playerStats.Get_FloatStatusPlayer(CharacterProperty.dash_amount));
+        playerStats.Change_StatusPlayer(ObjectProperty.move_speed, '+', playerStats.Get_FloatStatusPlayer(ObjectProperty.dash_amount));
         dashTrailRenderer.emitting = true;
         StartCoroutine(EndDashRoutine());
     }
@@ -130,11 +129,11 @@ public class PlayerController : Singleton<PlayerController>
     {
         // Player is Dashing
         yield return new WaitForSeconds(dashTime);
-        playerStats.Change_StatusPlayer(CharacterProperty.move_speed, '=', playerStats.Get_FloatStatusPlayer(CharacterProperty.defaut_move_speed));
+        playerStats.Change_StatusPlayer(ObjectProperty.move_speed, '=', playerStats.Get_FloatStatusPlayer(ObjectProperty.defaut_move_speed));
         dashTrailRenderer.emitting = false;
 
         // Player Geting Dash CD
-        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(CharacterProperty.dash_cd));
+        yield return new WaitForSeconds(playerStats.Get_FloatStatusPlayer(ObjectProperty.dash_cd));
         isDashing = false;
     }
 }

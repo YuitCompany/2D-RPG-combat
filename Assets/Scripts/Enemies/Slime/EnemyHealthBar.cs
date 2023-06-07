@@ -1,8 +1,7 @@
-using BaseMonster;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+using BaseObject;
 
 public class EnemyHealthBar : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class EnemyHealthBar : MonoBehaviour
     /// </summary>
     private void SetMaxHealthBar()
     {
-        sliderHealth.maxValue = (float)slimeStats.Get_IntStatusSlime(MonsterProperty.max_health_point);
+        sliderHealth.maxValue = (float)slimeStats.Get_IntStatusSlime(ObjectProperty.max_health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(1f);
     }
 
@@ -45,7 +44,7 @@ public class EnemyHealthBar : MonoBehaviour
     /// </summary>
     public void SetPresentHealthBar()
     {
-        sliderHealth.value = (float)slimeStats.Get_IntStatusSlime(MonsterProperty.health_point);
+        sliderHealth.value = (float)slimeStats.Get_IntStatusSlime(ObjectProperty.health_point);
         fillColorHealth.color = gradientHealthColor.Evaluate(sliderHealth.normalizedValue);
     }
 }
