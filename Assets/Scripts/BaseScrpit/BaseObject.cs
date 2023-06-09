@@ -11,7 +11,6 @@ namespace BaseObject
         T Value { get; set; }
     }
 
-
     /// <summary>
     /// Enum Type Include The Object Stats
     /// </summary>
@@ -31,5 +30,31 @@ namespace BaseObject
         attack_speed,
         defense_amount,
         anti_effect
+    }
+
+    public enum BuffProperty
+    {
+        name,
+        total_time,
+        per_time,
+        stack,
+        max_stack,
+        state
+    }
+
+    public enum InventorySlot
+    {
+        hat,
+        shirt,
+        pants,
+        gloves,
+        shoes
+    }
+
+    public enum InventoryProperty
+    {
+        name,
+        level,
+        state
     }
 }

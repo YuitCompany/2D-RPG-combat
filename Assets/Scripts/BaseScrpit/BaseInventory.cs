@@ -1,15 +1,16 @@
 using BaseObject;
+using BaseStats;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-namespace StatsObject
+namespace BaseInventory
 {
-
     /// <summary>
-    /// IntProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, int>
+    /// IntPropertyInventory Class Inheritance Of BaseProperty With Value <ObjectProperty, int>
     /// </summary>
-    public class IntProperty : BaseProperty<ObjectProperty, int>
+    public class IntPropertyInventory : BaseProperty<InventoryProperty, int>
     {
-        protected ObjectProperty type;
+        protected InventoryProperty type;
         protected int value;
 
         /// <summary>
@@ -17,7 +18,7 @@ namespace StatsObject
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Int Value</param>
-        public IntProperty(ObjectProperty type, int value)
+        public IntPropertyInventory(InventoryProperty type, int value)
         {
             this.type = type;
             this.value = value;
@@ -27,7 +28,7 @@ namespace StatsObject
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new ObjectProperty GetType()
+        public new InventoryProperty GetType()
         {
             return type;
         }
@@ -40,11 +41,11 @@ namespace StatsObject
     }
 
     /// <summary>
-    /// FloatProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, float>
+    /// FloatPropertyInventory Class Inheritance Of BaseProperty With Value <ObjectProperty, float>
     /// </summary>
-    public class FloatProperty : BaseProperty<ObjectProperty, float>
+    public class FloatPropertyInventory : BaseProperty<InventoryProperty, float>
     {
-        protected ObjectProperty type;
+        protected InventoryProperty type;
         protected float value;
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace StatsObject
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">Float Value</param>
-        public FloatProperty(ObjectProperty type, float value)
+        public FloatPropertyInventory(InventoryProperty type, float value)
         {
             this.type = type;
             this.value = value;
@@ -62,7 +63,7 @@ namespace StatsObject
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new ObjectProperty GetType()
+        public new InventoryProperty GetType()
         {
             return type;
         }
@@ -75,11 +76,11 @@ namespace StatsObject
     }
 
     /// <summary>
-    /// StringProperty Class Inheritance Of BaseProperty With Value <ObjectProperty, string>
+    /// StringPropertyInventory Class Inheritance Of BaseProperty With Value <ObjectProperty, string>
     /// </summary>
-    public class StringProperty : BaseProperty<ObjectProperty, string>
+    public class StringPropertyInventory : BaseProperty<InventoryProperty, string>
     {
-        protected ObjectProperty type;
+        protected InventoryProperty type;
         protected string value;
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace StatsObject
         /// </summary>
         /// <param name="type">Key</param>
         /// <param name="value">String Value</param>
-        public StringProperty(ObjectProperty type, string value)
+        public StringPropertyInventory(InventoryProperty type, string value)
         {
             this.type = type;
             this.value = value;
@@ -97,7 +98,7 @@ namespace StatsObject
         /// Get Key Property
         /// </summary>
         /// <returns>PlayerPropery Type</returns>
-        public new ObjectProperty GetType()
+        public new InventoryProperty GetType()
         {
             return type;
         }
@@ -109,52 +110,68 @@ namespace StatsObject
         public string Value { get { return value; } set { this.value = value; } }
     }
 
-    /// <summary>
-    /// CharacterStats Class Save Data Using Dictionay<Key, Value>
-    /// Key: Using For Data Access
-    /// Value: Save Data Type: Int/Float/String--Property
-    /// Value.Key = Key
-    /// Value.Value: Data Stored
-    /// </summary>
-    public class ObjectState
+    public class InventoryState
     {
-        // Dictionary Save Data Stored In Type
-        private Dictionary<ObjectProperty, IntProperty> Dic_IntProperty = new Dictionary<ObjectProperty, IntProperty>();
-        private Dictionary<ObjectProperty, FloatProperty> Dic_FloatProperty = new Dictionary<ObjectProperty, FloatProperty>();
-        private Dictionary<ObjectProperty, StringProperty> Dic_StringProperty = new Dictionary<ObjectProperty, StringProperty>();
+        public ObjectState Status { get { return status; } }
+
+        private Dictionary<InventoryProperty, IntPropertyInventory> Dic_IntProperty = new Dictionary<InventoryProperty, IntPropertyInventory>();
+        private Dictionary<InventoryProperty, FloatPropertyInventory> Dic_FloatProperty = new Dictionary<InventoryProperty, FloatPropertyInventory>();
+        private Dictionary<InventoryProperty, StringPropertyInventory> Dic_StringProperty = new Dictionary<InventoryProperty, StringPropertyInventory>();
+
+        private ObjectState status = new ObjectState();
 
 
         /// <summary>
-        /// Add_Property Overload Method
+        /// Set_Property Overload Method
         /// Using Type Input For Save Type Dictionary
         /// </summary>
         /// <param name="Property">Data.Value Will Be Written If Data.Key Not Duplicate</param>
-        public void Add_Property(IntProperty intProperty)
+        public void Set_Property(IntPropertyInventory property)
         {
-            ObjectProperty type = intProperty.GetType();
-
-            if (!Dic_IntProperty.ContainsKey(type))
-            {
-                Dic_IntProperty.Add(type, intProperty);
-            }
+            InventoryProperty type = property.GetType();
+            if (Dic_IntProperty.ContainsKey(type)) return;
+            Dic_IntProperty.Add(type, property);
         }
-        public void Add_Property(FloatProperty floatProperty)
+        public void Set_Property(FloatPropertyInventory property)
         {
-            ObjectProperty type = floatProperty.GetType();
-
-            if (!Dic_FloatProperty.ContainsKey(type))
-            {
-                Dic_FloatProperty.Add(type, floatProperty);
-            }
+            InventoryProperty type = property.GetType();
+            if (Dic_FloatProperty.ContainsKey(type)) return;
+            Dic_FloatProperty.Add(type, property);
         }
-        public void Add_Property(StringProperty stringProperty)
+        public void Set_Property(StringPropertyInventory property)
         {
-            ObjectProperty type = stringProperty.GetType();
+            InventoryProperty type = property.GetType();
+            if (Dic_StringProperty.ContainsKey(type)) return;
+            Dic_StringProperty.Add(type, property);
+        }
+        public void SetProperty(ObjectState status)
+        {
+            this.status = status;
+        }
 
-            if (!Dic_StringProperty.ContainsKey(type))
-            {
-                Dic_StringProperty.Add(type, stringProperty);
-            }
+        /// <summary>
+        /// Set_Property Overload Method
+        /// Type Of Value Affect Searchability
+        /// </summary>
+        /// <param name="type">Key For Search Value</param>
+        /// <param name="value">Value Will Be Written If Key Found</param>
+        public void Set_Property(InventoryProperty type, int value)
+        {
+            if (!Dic_IntProperty.ContainsKey(type)) return;
+
+            Dic_IntProperty[type].Value = value;
+        }
+        public void Set_Property(InventoryProperty type, float value)
+        {
+            if (!Dic_FloatProperty.ContainsKey(type)) return;
+
+            Dic_FloatProperty[type].Value = value;
+        }
+        public void Set_Property(InventoryProperty type, string value)
+        {
+            if (!Dic_StringProperty.ContainsKey(type)) return;
+
+            Dic_StringProperty[type].Value = value;
         }
 
         /// <summary>
@@ -163,19 +180,20 @@ namespace StatsObject
         /// <param name="type">Key For Search Data</param>
         /// <returns>Int value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public int Get_IntProperty(ObjectProperty type)
+        public int Get_IntProperty(InventoryProperty type)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return 0;
 
             return Dic_IntProperty[type].Value;
         }
+
         /// <summary>
         /// Get_FloatProperty Method For Each Type
         /// </summary>
         /// <param name="type">Key For Search Data</param>
         /// <returns>Float value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public float Get_FloatProperty(ObjectProperty type)
+        public float Get_FloatProperty(InventoryProperty type)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return 0f;
 
@@ -187,37 +205,13 @@ namespace StatsObject
         /// <param name="type">Key For Search Data</param>
         /// <returns>String value If Data Found</returns>
         /// <returns>0 If Data Not Found </returns>
-        public string Get_StringProperty(ObjectProperty type)
+        public string Get_StringProperty(InventoryProperty type)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return "";
 
             return Dic_StringProperty[type].Value;
         }
 
-        /// <summary>
-        /// Set_Property Overload Method
-        /// Type Of Value Affect Searchability
-        /// </summary>
-        /// <param name="type">Key For Search Value</param>
-        /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Set_Property(ObjectProperty type, int value)
-        {
-            if (!Dic_IntProperty.ContainsKey(type)) return;
-
-            Dic_IntProperty[type].Value = value;
-        }
-        public void Set_Property(ObjectProperty type, float value)
-        {
-            if (!Dic_FloatProperty.ContainsKey(type)) return;
-
-            Dic_FloatProperty[type].Value = value;
-        }
-        public void Set_Property(ObjectProperty type, string value)
-        {
-            if (!Dic_StringProperty.ContainsKey(type)) return;
-
-            Dic_StringProperty[type].Value = value;
-        }
 
         /// <summary>
         /// Change_Property OverLoad Method
@@ -228,7 +222,7 @@ namespace StatsObject
         /// <param name="operatorType">Operator Calculus Classification</param>
         /// <param name="type">Key For Search Value</param>
         /// <param name="value">Value Will Be Written If Key Found</param>
-        public void Change_Property(ObjectProperty type, char operatorType, int value)
+        public void Change_Property(InventoryProperty type, char operatorType, int value)
         {
             if (!Dic_IntProperty.ContainsKey(type)) return;
 
@@ -239,7 +233,7 @@ namespace StatsObject
             if (operatorType == '/') Dic_IntProperty[type].Value /= value;
             if (operatorType == '%') Dic_IntProperty[type].Value %= value;
         }
-        public void Change_Property(ObjectProperty type, char operatorType, float value)
+        public void Change_Property(InventoryProperty type, char operatorType, float value)
         {
             if (!Dic_FloatProperty.ContainsKey(type)) return;
 
@@ -250,7 +244,7 @@ namespace StatsObject
             if (operatorType == '/') Dic_FloatProperty[type].Value /= value;
             if (operatorType == '%') Dic_FloatProperty[type].Value %= value;
         }
-        public void Change_Property(ObjectProperty type, char operatorType, string value)
+        public void Change_Property(InventoryProperty type, char operatorType, string value)
         {
             if (!Dic_StringProperty.ContainsKey(type)) return;
 

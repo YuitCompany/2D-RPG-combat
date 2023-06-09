@@ -1,7 +1,7 @@
 using UnityEngine;
 
 using BaseObject;
-using StatsObject;
+using BaseStats;
 
 public class SlimeStats : MonoBehaviour
 {
@@ -19,21 +19,21 @@ public class SlimeStats : MonoBehaviour
     /// </summary>
     private void SetStatusSlime()
     {
-        slimeStats.Add_Property(new StringProperty(ObjectProperty.name, "Slime"));
-        slimeStats.Add_Property(new IntProperty(ObjectProperty.level, 1));
+        slimeStats.Set_Property(new StringProperty(ObjectProperty.name, "Slime"));
+        slimeStats.Set_Property(new IntProperty(ObjectProperty.level, 1));
 
-        slimeStats.Add_Property(new IntProperty(ObjectProperty.health_point, 50));
-        slimeStats.Add_Property(new IntProperty(ObjectProperty.max_health_point, 50));
+        slimeStats.Set_Property(new IntProperty(ObjectProperty.health_point, 50));
+        slimeStats.Set_Property(new IntProperty(ObjectProperty.max_health_point, 50));
 
-        slimeStats.Add_Property(new FloatProperty(ObjectProperty.defaut_move_speed, 5f));
-        slimeStats.Add_Property(new FloatProperty(ObjectProperty.move_speed, 3f));
+        slimeStats.Set_Property(new FloatProperty(ObjectProperty.defaut_move_speed, 5f));
+        slimeStats.Set_Property(new FloatProperty(ObjectProperty.move_speed, 3f));
 
-        slimeStats.Add_Property(new IntProperty(ObjectProperty.attack_amount, 3));
-        slimeStats.Add_Property(new FloatProperty(ObjectProperty.attack_speed, 1f));
+        slimeStats.Set_Property(new IntProperty(ObjectProperty.attack_amount, 3));
+        slimeStats.Set_Property(new FloatProperty(ObjectProperty.attack_speed, 1f));
 
-        slimeStats.Add_Property(new FloatProperty(ObjectProperty.defense_amount, 1f));
+        slimeStats.Set_Property(new FloatProperty(ObjectProperty.defense_amount, 1f));
 
-        slimeStats.Add_Property(new IntProperty(ObjectProperty.anti_effect, 20));
+        slimeStats.Set_Property(new IntProperty(ObjectProperty.anti_effect, 20));
     }
 
     /// <summary>

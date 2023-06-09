@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ActiveInventory : MonoBehaviour
 {
+    public int ActiveSlotIndex { get { return activeSlotIndex; } }
+
     private PlayerControls playerControls;
-    private int ActiveSlotIndex = 0;
+    private int activeSlotIndex = 0;
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class ActiveInventory : MonoBehaviour
     /// <param name="indexValue">Inventory Slot</param>
     private void ToggleActiveHighlight(int indexValue)
     {
-        ActiveSlotIndex = indexValue;
+        activeSlotIndex = indexValue;
 
         foreach (Transform inventorySlot in this.transform)
         {
