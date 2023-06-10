@@ -39,19 +39,23 @@ public class Character
     /// <summary>
     /// Set_DefaultState OverLoad Method
     /// Add New Values For BaseState
+    /// Add new Values For CurrentState
     /// </summary>
     /// <param name="property">Valuse Will Be Add</param>
     public void Set_DefaultState(IntProperty property)
     {
         baseState.Set_Property(property);
+        currentState.Set_Property(property);
     }
     public void Set_DefaultState(FloatProperty property)
     {
         baseState.Set_Property(property);
+        currentState.Set_Property(property);
     }
     public void Set_DefaultState(StringProperty property)
     {
         baseState.Set_Property(property);
+        currentState.Set_Property(property);
     }
 
     /// <summary>
@@ -85,6 +89,26 @@ public class Character
     public string Get_StringDefaultState(ObjectProperty type)
     {
         return baseState.Get_StringProperty(type);
+    }
+
+    /// <summary>
+    /// Change_CurrentState OverLoad Method
+    /// Change An Property On CurrentState
+    /// </summary>
+    /// <param name="type">Key For Find Value</param>
+    /// <param name="operatorType">Operator Caculate</param>
+    /// <param name="value">Value Caculate</param>
+    public void Change_CurrentState(ObjectProperty type, char operatorType, int value)
+    {
+        currentState.Change_Property(type, operatorType, value);
+    }
+    public void Change_CurrentState(ObjectProperty type, char operatorType, float value)
+    {
+        currentState.Change_Property(type, operatorType, value);
+    }
+    public void Change_CurrentState(ObjectProperty type, char operatorType, string value)
+    {
+        currentState.Change_Property(type, operatorType, value);
     }
 
     /// <summary>
