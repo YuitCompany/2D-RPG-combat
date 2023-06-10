@@ -122,6 +122,25 @@ namespace BaseStats
         protected Dictionary<ObjectProperty, FloatProperty> Dic_FloatProperty = new Dictionary<ObjectProperty, FloatProperty>();
         protected Dictionary<ObjectProperty, StringProperty> Dic_StringProperty = new Dictionary<ObjectProperty, StringProperty>();
 
+        /// <summary>
+        /// Constructor Oveload Method
+        /// Constructor Will Get Single Property
+        /// Variable Available: Int/Float/String Property
+        /// </summary>
+        /// <param name="property">Variable Will Be Add</param>
+        public ObjectState() {}
+        public ObjectState(IntProperty property)
+        {
+            Dic_IntProperty.Add(property.GetType() ,property);
+        }
+        public ObjectState(FloatProperty property)
+        {
+            Dic_FloatProperty.Add(property.GetType(), property);
+        }
+        public ObjectState(StringProperty property)
+        {
+            Dic_StringProperty.Add(property.GetType(), property);
+        }
 
         /// <summary>
         /// Set_Property Overload Method
@@ -217,6 +236,33 @@ namespace BaseStats
             if (!Dic_StringProperty.ContainsKey(type)) return "";
 
             return Dic_StringProperty[type].Value;
+        }
+
+        /// <summary>
+        /// Get_ListState Method For
+        /// Return All Keys Of Dictionary
+        /// With Type: Object Property
+        /// </summary>
+        /// <returns>List Object Property</returns>
+        public List<ObjectProperty> Get_IntListState()
+        {
+            List<ObjectProperty> listType = new List<ObjectProperty>();
+            foreach(ObjectProperty type in Dic_IntProperty.Keys)
+            {
+                listType.Add(type);
+            }
+
+            return listType;
+        }
+        public List<ObjectProperty> Get_FloatListState()
+        {
+            List<ObjectProperty> listType = new List<ObjectProperty>();
+            foreach(ObjectProperty type in Dic_FloatProperty.Keys)
+            {
+                listType.Add(type);
+            }
+
+            return listType;
         }
 
         /// <summary>

@@ -11,6 +11,15 @@ namespace BaseObject
         T Value { get; set; }
     }
 
+    public enum Operation
+    {
+        plus,
+        minus,
+        multiply,
+        divide,
+        divide_by_remainder
+    }
+
     /// <summary>
     /// Enum Type Include The Object Stats
     /// </summary>
@@ -30,6 +39,12 @@ namespace BaseObject
         attack_speed,
         defense_amount,
         anti_effect
+    }
+
+    public enum BuffType
+    {
+        buff,
+        debuff
     }
 
     public enum BuffProperty

@@ -112,7 +112,7 @@ namespace BaseInventory
 
     public class InventoryState
     {
-        public ObjectState Status { get { return status; } }
+        public ObjectState Status { get { return status; } set { status = value; } }
 
         private Dictionary<InventoryProperty, IntPropertyInventory> Dic_IntProperty = new Dictionary<InventoryProperty, IntPropertyInventory>();
         private Dictionary<InventoryProperty, FloatPropertyInventory> Dic_FloatProperty = new Dictionary<InventoryProperty, FloatPropertyInventory>();
@@ -143,10 +143,6 @@ namespace BaseInventory
             InventoryProperty type = property.GetType();
             if (Dic_StringProperty.ContainsKey(type)) return;
             Dic_StringProperty.Add(type, property);
-        }
-        public void SetProperty(ObjectState status)
-        {
-            this.status = status;
         }
 
         /// <summary>

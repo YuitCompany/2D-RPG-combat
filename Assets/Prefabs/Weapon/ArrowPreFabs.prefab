@@ -174,4 +174,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 849561171402552453}
   arrowAnim: {fileID: 6463911455865071447}
+  arrowDamage: 3
   angle: 0

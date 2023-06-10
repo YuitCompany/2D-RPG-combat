@@ -4,31 +4,43 @@ using BaseBuff;
 using BaseInventory;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 
 public class Character
 {
     ObjectState baseState = new ObjectState();
     Dictionary<InventorySlot, InventoryState> inventoryState;
-    BuffStatus buffState;
+    Dictionary<BuffType, BuffStatus> buffState;
     ObjectState currentState = new ObjectState();
 
-    bool isInventory = false;
-    bool isBuff = false;
+    bool isHaveInventory = false;
+    bool isHaveBuff = false;
 
-    // active
+    /// <summary>
+    /// ActiveInventory Method
+    /// Active Inventory System
+    /// </summary>
     public void ActiveInventory()
     {
-        isInventory = true;
+        isHaveInventory = true;
         inventoryState = new Dictionary<InventorySlot, InventoryState>();
     }
 
+    /// <summary>
+    /// ActiveInventory Method
+    /// Active Buff System
+    /// </summary>
     public void ActiveBuff()
     {
-        isBuff = true;
-        buffState = new BuffStatus();
+        isHaveBuff = true;
+        buffState = new Dictionary<BuffType, BuffStatus>();
     }
 
-    // base
+    /// <summary>
+    /// Set_DefaultState OverLoad Method
+    /// Add New Values For BaseState
+    /// </summary>
+    /// <param name="property">Valuse Will Be Add</param>
     public void Set_DefaultState(IntProperty property)
     {
         baseState.Set_Property(property);
@@ -42,60 +54,170 @@ public class Character
         baseState.Set_Property(property);
     }
 
+    /// <summary>
+    /// Get_IntDefaultState Method
+    /// Return Int Property Of BaseState
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>Int</returns>
     public int Get_IntDefaultState(ObjectProperty type)
     {
         return baseState.Get_IntProperty(type);
     }
+
+    /// <summary>
+    /// Get_FloatDefaultState Method
+    /// Return Float Property Of BaseState
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>Float</returns>
     public float Get_FloatDefaultState(ObjectProperty type)
     {
         return baseState.Get_FloatProperty(type);
     }
+
+    /// <summary>
+    /// Get_StringDefaultState Method
+    /// Return String Property Of BaseState
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>String</returns>
     public string Get_StringDefaultState(ObjectProperty type)
     {
         return baseState.Get_StringProperty(type);
     }
 
-    // current
-    public void Set_CurrentState(IntProperty property)
+    /// <summary>
+    /// Add_CurrentState Method
+    /// Plus Values From CurrentState
+    /// Values Change: Int/Float
+    /// </summary>
+    /// <param name="state"></param>
+    public void Add_CurrentState(ObjectState state)
     {
-        currentState.Set_Property(property);
-    }
-    public void Set_CurrentState(FloatProperty property)
-    {
-        currentState.Set_Property(property);
-    }
-    public void Set_CurrentState(StringProperty property)
-    {
-        currentState.Set_Property(property);
+        foreach(ObjectProperty type in state.Get_IntListState())
+        {
+            currentState.Change_Property(type, '+', state.Get_IntProperty(type));
+        }
+        foreach (ObjectProperty type in state.Get_FloatListState())
+        {
+            currentState.Change_Property(type, '+', state.Get_FloatProperty(type));
+        }
     }
 
+    /// <summary>
+    /// Remove_CurrentState Method
+    /// Minus Values From CurrentState
+    /// Values Change: Int/Float
+    /// </summary>
+    /// <param name="state"></param>
+    public void Remove_CurrentState(ObjectState state)
+    {
+        foreach (ObjectProperty type in state.Get_IntListState())
+        {
+            currentState.Change_Property(type, '-', state.Get_IntProperty(type));
+        }
+        foreach (ObjectProperty type in state.Get_FloatListState())
+        {
+            currentState.Change_Property(type, '-', state.Get_FloatProperty(type));
+        }
+    }
+
+    /// <summary>
+    /// Get_IntCurrentState Method
+    /// Return IntProperty of CurrentState
+    /// With Type Key
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>Int</returns>
     public int Get_IntCurrentState(ObjectProperty type)
     {
         return currentState.Get_IntProperty(type);
     }
+
+    /// <summary>
+    /// Get_FloatCurrentState Method
+    /// Return FloatProperty of CurrentState
+    /// With Type Key
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>Float</returns>
     public float Get_FloatCurrentState(ObjectProperty type)
     {
         return currentState.Get_FloatProperty(type);
     }
+
+    /// <summary>
+    /// Get_StringCurrentState Method
+    /// Return StringProperty of CurrentState
+    /// With Type Key
+    /// </summary>
+    /// <param name="type">Key Find Value</param>
+    /// <returns>String</returns>
     public string Get_StringCurrentState(ObjectProperty type)
     {
         return currentState.Get_StringProperty(type);
     }
 
-    // inventory
-    public void EquipInventory(InventorySlot slot, InventoryState inventory)
+    /// <summary>
+    /// Equip_Inventory Method
+    /// Add Inventory From InventoryStatus
+    /// And Change CurrentState
+    /// </summary>
+    /// <param name="slot">Slot Of Inventory</param>
+    /// <param name="inventory">Inventory Will Equip</param>
+    public void Equip_Inventory(InventorySlot slot, InventoryState inventory)
     {
-        if (isInventory) return;
+        if (!isHaveInventory) return;
+        Add_CurrentState(inventory.Status);
         inventoryState.Add(slot, inventory);
     }
 
-    public void UneqipInventory(InventorySlot slot)
+    /// <summary>
+    /// Equip_Inventory Method
+    /// Remove Inventory From InventoryStatus
+    /// And Change CurrentState
+    /// </summary>
+    /// <param name="slot">Slot Of Inventory On InvenstorySlot</param>
+    public void Unequip_Inventory(InventorySlot slot)
     {
-        if (isInventory) return;
+        if (!isHaveInventory) return;
+        Remove_CurrentState(inventoryState[slot].Status);
         inventoryState.Remove(slot);
     }
-    private void UpdateCurrentState(InventoryState inventory)
+    //public InventoryState Get_InfoInventory(InventorySlot slot)
+    //{
+    //    if (isHaveInventory || !inventoryState.ContainsKey(slot)) return null;
+
+    //    return inventoryState[slot];
+    //}
+
+    /// <summary>
+    /// Take_BuffEffect Method
+    /// Add New Buff From Dictionary BuffState
+    /// And Change Character CurrentStatus
+    /// </summary>
+    /// <param name="type">Type Of Buff</param>
+    /// <param name="buff">Buff Status</param>
+    public void Take_BuffEffect(BuffType type, BuffStatus buff)
     {
-        if (isInventory) return;
+        if (!isHaveBuff) return;
+        if(type == BuffType.buff) Add_CurrentState(buff.Status);
+        else Remove_CurrentState(buff.Status);
+        buffState.Add(type, buff);
+    }
+
+    /// <summary>
+    /// Remove_BuffEffect Method
+    /// Remove A Buff From Dictionary BuffState
+    /// And Change Character CurrentStatus
+    /// </summary>
+    /// <param name="type">Type Of Buff on Slot</param>
+    public void Remove_BuffEffect(BuffType type)
+    {
+        if (!isHaveBuff) return;
+        if (type == BuffType.buff) Remove_CurrentState(buffState[type].Status);
+        else Add_CurrentState(buffState[type].Status);
+        buffState.Remove(type);
     }
 }
